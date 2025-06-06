@@ -1,0 +1,56 @@
+\glsdefs@newdocentry{AI}%
+{%
+name={\acronymfont {\glsentryshort {AI}}},%
+sort={AI},%
+type={acronym},%
+first={AI},%
+firstplural={AIs},%
+text={AI},%
+plural={AIs},%
+description={Artificial Intelligence},%
+descriptionplural={Artificial Intelligence},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Artificial Intelligence},%
+longplural={Artificial Intelligences},%
+short={AI},%
+shortplural={AIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{CV}%
+{%
+name={\acronymfont {\glsentryshort {CV}}},%
+sort={CV},%
+type={acronym},%
+first={CV},%
+firstplural={CVs},%
+text={CV},%
+plural={CVs},%
+description={Computer Vision},%
+descriptionplural={Computer Vision},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Computer Vision},%
+longplural={Computer Visions},%
+short={CV},%
+shortplural={CVs},%
+counter={page},%
+parent={},%
+%
+}%
+

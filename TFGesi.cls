@@ -20,7 +20,7 @@
 
 \SetupKeyvalOptions{family=ESI, prefix=ESI@}
 
-\DeclareBoolOption[true]{spanish} % Por defecto idioma español (False)
+\DeclareBoolOption[false]{spanish} % Por defecto idioma español (False)
 \DeclareComplementaryOption{english}{spanish} % Modo borrador (True)
 \DeclareBoolOption[true]{pageonfooter} % Nº de página en el pie (False)
 \DeclareStringOption[normal]{device} % Dispositivo de salida (pdftex)
@@ -416,6 +416,12 @@
 }
 % -------------------------
 
+
+% -------------------------
+% GLOSARIO
+% -------------------------
+\RequirePackage[acronym]{glossaries}
+
 % -------------------------
 % INCLUSIÓN DE MENÚS, PATHS Y TECLAS
 % -------------------------
@@ -652,10 +658,8 @@
 	\textcopyright{} \autoria, \yearTF\\[1cm]
 }{%
 	\vfill
-	Este texto ha sido preparado con la plantilla \LaTeX{} para Trabajo Fin de 
-	Estudios en Ingeniería Informática para la UCLM publicada por 
-	\href{https://www.esi.uclm.es/www/jsalido}{Jesús Salido} en el repositorio 
-	público Zenodo, DOI: 
+	This text has been prepared with the \LaTeX{} template for Final Dissertations in Computing Engineering for UCLM, published by 
+	\href{https://www.esi.uclm.es/www/jsalido}{Jesús Salido} in the public Zenodo repository, DOI:
 	\href{https://doi.org/10.5281/zenodo.4561708}{10.5281/zenodo.4561708}.%, como parte del curso \href{http://visilab.etsii.uclm.es/?page_id=1468}{\emph{<<\LaTeX{} esencial 	para preparación de TFG, tesis y otros documentos académicos>>}} impartido 	en la Escuela Superior de Informática de la Universidad de Castilla-La 	Mancha.
 	\cleardoublepage
 }	

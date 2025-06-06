@@ -1,12 +1,29 @@
-\chapter{Introducción}
-\label{cap:Introduccion}
+\chapter{Introduction}
+\label{cap:Introduction}
 
-Este capítulo aborda la motivación del trabajo. Se trata de señalar la necesidad que lo origina, su actualidad y pertinencia. Puede incluir también un estado de la cuestión (o estado del arte) en el que se revisen estudios o desarrollos previos, explicando en qué medida sirven de base al trabajo que se presenta. La estructura del capítulo podría quedar reflejada en las secciones que se incluyen.
+This chapter holds the aim is to give a  general introduction to what motivated the development of this work, its objectives, and an
+overview of the context where the work is going to be developed. Furthermore, a study of some existing tools that solve the problem in
+some form or another will be also included.
+\section{Motivation}
 
-\section{Motivación}
-Responde a la pregunta sobre la necesidad o pertinencia del trabajo. En particular para este documento, se ha tenido presente que durante la realización de la memoria del TFG es muy importante respetar la guía de estilo  institucional~\cite{esi19}. Por tanto, el empleo de plantillas para un sistema de procesamiento de textos (p.~ej., Word o \LaTeX) puede requerir su adaptación cuando la plantilla mencionada no esté avalada por la institución donde se presentará el trabajo.
+It is of common knowledge that Artificial Intelligence has gained significant importance in the 2020s. The development of tools such as the GPT models
+have headed a revolution in the way humans solve both simple and complex tasks. A revolution that was made possible with the intervention of multiple
+companies and organisations, and a considerable amount of money and time invested in the development of these models \cite{AIRise}.
 
-Es muy posible que en este capítulo sea preciso indicar de un modo conciso cuál es el objetivo general del trabajo. Sin embargo, esto no debe evitar la necesidad de incluir una sección o incluso un capítulo ---como en esta plantilla--- dedicado a explicar en mayor detalle el objetivo general y los secundarios (también denominados específicos) del TFG.
+UBOTICA Technologies is a pioneer company that develops \acrshort{AI} \acrfull{CV} solutions. This means that, as a company, they use Artificial Intelligence
+techniques to extract information from images. These solutions are then integrated in embedded systems with limited capabilities, and that are part of a 
+bigger, more complex system. The domains where these solutions are used are mainly in the space industry with their new CogniSAT-6 project \cite{UBOTICACS6}, 
+and recently even in the culinary industry. The development of the various solutions of the company requires multiple iterations where the models are trained,
+validated and tested, either in existing datasets, or in new ones. Moreover, the CogniSAT-6 system has the capability for creating new datasets out of self-taken
+images, which may be periodically added to the existing datasets, or even used to replace the existing ones.
+
+This continuous rise of the available models and datasets, paired with a lack of a real control protocol over the new and improved versions of an AI model or dataset,
+has led often to chaotic situations where an abnormal amount of time is taken on looking for the desired dataset, and accessing the necessary training configuration
+that produced an specific result on a model.
+
+The aim of MADTrack is to develop a system that establishes a real configuration management basis for these datasets and AI models. A system that can integrate
+both new and existing datasets and models in a distributed, remote environment, and that will make the best use of the available resources the company dedicates
+to this management.
 
 \section{Contexto disciplinar y tecnológico}
 También se puede denominar \emph{<<Antecedentes>>} o \emph{<<Estado del arte>>} cuando se trata de comentar trabajos relacionados que han abordado la cuestión u objetivo planteado. En esta sección se debería introducir el \emph{contexto disciplinar y tecnológico} en el que se desarrolla el trabajo de modo que ayude a entender con facilidad su ámbito y alcance. Puesto que un TFG no tiene que ser necesariamente un trabajo con aportes novedosos u originales, solo es necesario la inclusión de \emph{estado del arte} cuando este contribuya a aclarar aspectos clave del TFG o se desee justificar la originalidad del trabajo realizado.

@@ -27,9 +27,9 @@
 % numeración de páginas en el pie (pageonfooter=true) o en la cabecera
 % (pageonfooter=false).
 \documentclass[final, % final o draft (sin figuras)
-			   spanish, % Idioma pral. (spanish o english)
-			   device=normal, % Tipo de dispositivo (normal o screen)
-			   pageonfooter=false % Paginación en el pie
+				english, % Idioma pral. (spanish o english)
+				device=screen, % Tipo de dispositivo (normal o screen)
+				pageonfooter=false % Paginación en el pie
 ]{TFGesi}
 
 % -------------------------
@@ -47,24 +47,24 @@
 % el carácter '@', p.ej., \titulo
 % -------------------------
 \makeatletter 
-\@titulo{Plantilla guía de TFG para la ESI-UCLM} % 1ª Línea
-\@tituloCorto{Plantilla guía de TFG} % En idioma pral.
-\@tituloCortoAlt{Guided template for TFG} % En idioma alt.
-\@autoria{Jesús Salido Tercero}
-\@email{jesus.salido@uclm.es}
-\@autorline{Autor: \autoria}
-\@tutline{Tutor/a: Quien tutoriza}
-\@cotutline{Cotutor/a: Quien cotutoriza}
+\@titulo{MADTrack: Distributed System for Dataset and Artificial Intelligence Model Management} % 1ª Línea
+\@tituloCorto{MADTrack: SD de gestión de conjuntos de datos y modelos de IA} % En idioma pral.
+\@tituloCortoAlt{MADTrack: DS for Dataset and AI Model Management} % En idioma alt.
+\@autoria{Miguel Ángel Ruiz Arreaza}
+\@email{miguelangel.ruiz9@alu.uclm.es}
+\@autorline{Author: \autoria}
+\@tutline{Tutor: José Luis Espinosa Aranda}
+\@cotutline{Co-tutor: Pablo Tomás Toledano González}
 %\@cotutline{} % Si no procede dejar vacío (NO BORRAR)
 \@instEdu{UNIVERSIDAD DE CASTILLA-LA MANCHA}
 \@centroEdu{ESCUELA SUPERIOR DE INFORMÁTICA}
-\@titulacion{GRADO EN INGENIERÍA INFORMÁTICA} % En idioma pral.
-\@titulacionAlt{BACHELOR IN COMPUTING ENGINEERING} % En idioma alt.
-\@especialidad{Intensificación cursada} 
-\@depto{Depto. del tutor(a)}
-\@tipoDoc{TRABAJO FIN DE GRADO} % En idioma pral.
-\@tipoDocAlt{BACHELOR DISSERTATION} % En idioma alt.
-\@mesTF{julio}        	% Mes de defensa
+\@titulacion{BACHELOR IN COMPUTING ENGINEERING} % En idioma pral.
+\@titulacionAlt{GRADO EN INGENIERÍA INFORMÁTICA} % En idioma alt.
+\@especialidad{Coursed intensification: Computer Engineering} 
+\@depto{Tutor's Department: }
+\@tipoDoc{BACHELOR DISSERTATION} % En idioma pral.
+\@tipoDocAlt{TRABAJO FIN DE GRADO} % En idioma alt.
+\@mesTF{Julio}        	% Mes de defensa
 \@monthTF{July}        	% En inglés
 \@yearTF{2025}        	% Año de defensa
 \@cityTF{Ciudad Real}	% Ciudad de defensa
@@ -79,10 +79,18 @@
 	UCLM, %
 	TFG, %
 	\LaTeX, %
-	Overleaf, %
-	\TeX Live %
+	\TeX Live, %
+	AI, %
+	Deep Learning, %
+	Distributed System, %
+	Dataset, %
+	configuration management %
 } 
 
+% -------------------------
+% CARGAR GLOSARIO
+% -------------------------
+\makeglossaries
 
 % -------------------------
 % CUERPO del documento
@@ -90,6 +98,18 @@
 % Para pruebas, limita los ficheros incluidos.
 %\includeonly{} 
 \begin{document}
+
+\newacronym{AI}{AI}{Artificial Intelligence}
+\newacronym{CV}{CV}{Computer Vision}
+
+% -------------------------
+% ACRÓNIMOS
+% -------------------------
+%%\newacronym{DS}{DS}{Distributed Systems}
+%%\newacronym{AI}{AI}{Artificial Intelligence}
+%%\newacronym{DL}{DL}{Deep Learning}
+%%\newacronym{NN}{NN}{Neural Network}
+
 
 % -------------------------
 % Portadas, créditos, resumen, agradecimiento, notación e índices. 

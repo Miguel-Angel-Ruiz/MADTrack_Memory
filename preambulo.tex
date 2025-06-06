@@ -18,7 +18,7 @@
 % CRÉDITOS
 % -------------------------
 \begin{creditos}[\titulo] % Editar a conveniencia (se pasa el título deseado)
-El autor puede elegir el tipo de licencia que desee. Este documento se distribuye con licencia CC BY-NC-SA 4.0. El texto completo de la licencia se puede obtener en \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}. La copia y distribución de esta obra está permitida en todo el mundo, sin regalías y por cualquier medio, siempre que esta nota sea preservada. Se concede permiso para copiar y distribuir traducciones de este libro desde el español original a otro idioma, siempre que la traducción sea aprobada por el autor del libro y tanto el aviso de copyright como esta nota de permiso, sean preservados en todas las copias.
+The author may choose the license type they wish. This document is distributed under license CC BY-NC-SA 4.0. The full text of the license is available at \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}. The copy and distribution of this work is permitted in all parts of the world, without royalties and in any medium, as long as this notice is preserved. In addition, permission is granted to copy and distribute translations of this book from the English original to another language, provided that the copyright notice and this permission notice are preserved in all copies.
 
 \noindent \includegraphics[width=0.15\linewidth]{by-nc-sa}
 
@@ -45,8 +45,8 @@ El autor puede elegir el tipo de licencia que desee. Este documento se distribuy
 % DEDICATORIA 
 % -------------------------
 \begin{dedicatoria} % (no confundir con los agradecimientos)
-\emph{A mis estudiantes \\ % A alguien muy especial
-Por contribuir a hacer de cada día un reto ilusionante}
+\emph{To my family, close friends, fellow colleagues, classmates and professors \\ % A alguien muy especial
+For their patience and for accompanying me and showing me the way through this exciting journey.}
 \end{dedicatoria}
 
 \pagestyle{plain}	% Páginas sólo con numeración inferior al pie
@@ -55,27 +55,66 @@ Por contribuir a hacer de cada día un reto ilusionante}
 % -------------------------
 % RESÚMENES:
 % -------------------------
-% EDITAR: Resumen en idioma pral. default=spanish (máx. 1 pág.) 
-\begin{resumenPral}[spanish]{\titulo} % Se pasa el idioma (opcional) y título
-En una página como máximo, el resumen explica de modo conciso la problemática que trata de resolver el trabajo \emph{(<<Qué>>)}, la metodología para  abordar su solución (\emph{<<Cómo>>)} y las principales conclusiones del trabajo. En los trabajos cuyo idioma principal sea el inglés, el orden de \textsf{Resumen} y \textsf{Abstract} se invertirá. 
-
-En concreto, este documento debe servir como guía para preparar, con \LaTeX, el TFG en la \href{http://webpub.esi.uclm.es/}{Escuela Superior de Informática} (ESI) de la Univ. de Castilla-La Mancha (UCLM), siguiendo la \href{https://esi.uclm.es/index.php/grado-en-ingenieria-informatica/trabajos-fin-de-grado/}{normativa de aplicación}. Está disponible tanto en \href{https://github.com/JesusSalido/TFG_ESI_UCLM}{GitHub} como \href{https://www.overleaf.com/latex/templates/plantilla-de-tfg-escuela-superior-de-informatica-uclm/phjgscmfqtsw}{Overleaf}.
-
-Este texto se aprovecha para proporcionar información sobre la elaboración de la memoria del TFG con ayuda de \LaTeX{} empleando este documento como plantilla. Por este motivo, sigue una estructura similar a la que se espera encontrar en un TFG, mostrando ejemplos de uso de distintos elementos y comandos de maquetación de textos, como puede verse en el anexo~\ref{cap:AnexoA}.
-
-\noindent\emph{IMPORTANTE: Puedes alterar la estructura del documento según lo estimes conveniente. También, puedes modificar la plantilla para alterar el formato según tus preferencias. Aunque se ajusta a los requisitos y reglamentación de la ESI-UCLM, se puede adaptar fácilmente a otras titulaciones, instituciones y otros documentos de carácter académico. Además, esta plantilla permite la elaboración automática del documento en idioma inglés.}
-\end{resumenPral}
-
 
 % EDITAR: Resumen en idioma alternativo default=english (máx. 1 pág.)
 %---
 \begin{resumenAlt}[english]{\tituloCortoAlt} 
 % Se pasa el idioma (opcional) y título
-\emph{English version for the abstract.}
+
+\emph{<<What>>}
+
+Artificial Intelligence is on the rise, and many companies are striving to create a wide-ranging variety of models to help themselves and their customers in an equally wide range of specific tasks. This inevitably translates into multiple model trainings being performed a year and, in many cases, many datasets being created or modified in the same time interval. 
+Such is the case of UBOTICA Technologies: a Space:AI company that puts faith in Computation \emph{on the edge} to deliver AI solutions integrated in embedded systems incorporated in spacial modules, which come with limited space for storing data and computing power. The development of these solutions requires multiple training and deployment iterations,
+which over the years led to the current tangled mess of untraceable datasets and models, which makes it difficult to search for a specific AI training configuration. 
+
+
+\emph{<<How>>}
+
+MADTrack is a distributed configuration management system with the purpose of putting order to the configurational chaos previously mentioned. It will store, track and manage all changes within datasets and AI model configurations. The main 
+restrictions over the development of the system are the limited storage space of the company for this resources (the management of the evolution of datasets and models has to be done efficiently), the distributed nature of the environment where the items 
+are stored and managed and the need for the system to be integrated in a greater processing workflow. The development of the system will be divided in a series of prototypes with an iterative and incremental approach, following continuous testing policies.
+
+
+
+\emph{<<Conclusion>>}
+
+The resulting system will consist on a distributed system following the client-server application, with a local or remote server attending requests from multiple clients sending requests by means of a software wrapper library which in turn will interact with other open-source technologies.
+
 \end{resumenAlt}
 
+% EDITAR: Resumen en idioma pral. default=spanish (máx. 1 pág.) 
+\begin{resumenPral}[spanish]{\titulo} % Se pasa el idioma (opcional) y título
+
+\emph{<<Que>>}
+
+La Inteligencia Artificial está en ascenso, y muchas empresas están trabajando en la elaboración de una inmensa variedad de modelos que las ayuden tanto a ellas 
+como a sus clientes a realizar una variedad de tareas igualmente amplia. Esto provoca que se realicen muchas entrenamientos de modelos al año y, en muchos casos, 
+se creen o modifiquen muchos conjuntos de datos en el mismo intervalo de tiempo. Este es el caso de UBOTICA Tecnologías: una empresa de Space:AI que apuesta por la
+computación \emph{on the edge} para ofrecer soluciones de Inteligencia Artificial integradas en sistemas empotrados en módulos espaciales, que tienen un espacio de 
+almacenaje y poder computacional limitado. El desarrollo de estas soluciones requiere de varias iteraciones de entrenamiento y despliegue, lo que ha llevado a un desorden
+caótico de conjuntos de datos y modelos difícilmente identificables, lo que dificulta la búsqueda de un modelo o configuración de entrenamiento específica. 
+
+\emph{<<Como>>}
+
+MADTrack es un sistema de gestión de configuración distribuido que tiene el propósito de ponerle orden al caos configuracional previamente mencionado. El sistema almacenará, 
+rastreará y gestionará todas las modificaciones de conjuntos de datos y configuraciones de modelos IA.Las principales
+restricciones que tiene el desarrollo del sistema son el espacio de almacenamiento limitado de la empresa para estos recursos (la evolución de conjuntos de datos y modelos debe ser 
+registrada de manera eficiente), la naturaleza distribuida del entorno donde se almacenan y gestionan los elementos y la necesidad de la integración del sistema en un gran flujo de
+procesamiento. El desarrollo del sistema se dividirá en una serie de prototipos con un enfoque iterativo y incremental, siguiendo políticas de pruebas continuas.
+
+
+\emph{<<Conclusiones>>}
+
+El sistema resultante consistirá en un sistema distribuido que sigue la arquitectura cliente-servidor, con un servidor local o remoto atendiendo las solicitudes de varios clientes enviando 
+solicitudes a través de una biblioteca Software del tipo Wrapper que a su vez se interactúe con otras tecnologías de software abiertas. 
+
+\end{resumenPral}
+
+
+
+
 % Ajuste al idioma pral.
-\ifbool{ESI@spanish}{\selectlanguage{spanish}}{\selectlanguage{english}}
+\ifbool{ESI@spanish}{\selectlanguage{english}}{\selectlanguage{spanish}}
 
 
 % -------------------------
@@ -111,22 +150,7 @@ $\overline{A}$ o ${A}'$	& : & Operador NOT o negación
 % OJO: Esta lista debería estar ordenada alfabeticamente (hacer de modo manual).
 (Texto aclaratorio \emph{-suprime-}). Ejemplo de lista \emph{ordenada alfabéticamente} con los acrónimos empleados en el texto. Se pueden omitir aquellos acrónimos que son reconocidos en el contexto académico (p.~ej., PhD), aunque aquí se han incluido a efectos ilustrativos.
 
-\begin{tabular}{r r p{0.8\linewidth}}
-CASE& : &Computer-Aided Software Engineering \\
-CTAN& : &Comprenhensive \TeX{} Archive network \\
-IA& : & Inteligencia Artificial \\
-IDE& : &Integrated Development Environment \\
-ECTS& : &European Credit Transfer and Accumulation System \\
-OOD& : &Object-Oriented Design \\
-PhD& : &Philosophiae Doctor \\
-RAD& : &Rapid Application Development \\
-SDLC& : &Software Development Life Cycle \\
-SSADM& : &Structured Systems Analysis \& Design Method \\
-TFE& : &Trabajo Fin de Estudios \\
-TFG& : &Trabajo Fin de Grado \\
-TFM& : &Trabajo Fin de Máster \\
-UML& : &Unified Modeling Language
-\end{tabular}
+\printacronyms
 
 
 % -------------------------
