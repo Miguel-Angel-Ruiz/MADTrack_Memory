@@ -54,3 +54,31 @@ parent={},%
 %
 }%
 
+\glsdefs@newdocentry{PaaS}%
+{%
+name={\acronymfont {\glsentryshort {PaaS}}},%
+sort={PaaS},%
+type={acronym},%
+first={PaaS},%
+firstplural={PaaSs},%
+text={PaaS},%
+plural={PaaSs},%
+description={Platform as a Service},%
+descriptionplural={Platform as a Service},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Platform as a Service},%
+longplural={Platform as a Services},%
+short={PaaS},%
+shortplural={PaaSs},%
+counter={page},%
+parent={},%
+%
+}%
+

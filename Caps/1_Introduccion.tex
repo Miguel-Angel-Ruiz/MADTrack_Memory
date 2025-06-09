@@ -1,9 +1,31 @@
 \chapter{Introduction}
 \label{cap:Introduction}
 
-This chapter holds the aim is to give a  general introduction to what motivated the development of this work, its objectives, and an
-overview of the context where the work is going to be developed. Furthermore, a study of some existing tools that solve the problem in
-some form or another will be also included.
+With the passage of time, the development of \acrfull{AI} has become of increasing interest due to the powerful tools it can provide to any
+organisation \cite{AIRise}. Since the developmet of \emph{The Bombe}, the machine that was able to decode the \emph{Enigma} machine in 1939,
+passing through a whole set of ups and downs and even a silent winter before its comeback in 2015 thanks to Deep Learning, Artificial Intelligence
+is being applied in a number of fields, sometimes even reaching the point of having the potential to threatening human safety and raising awareness
+of the need of regulations for its use.
+
+The development of these models has been made possible thanks to the contribution of a number of organisations, such as Google, Microsoft and OpenAI,
+which invested an objectively significant amount of time and money (reaching a total investment of 24.0 billion dollars in 2018) to develop systems as
+broad as the GPT-4 model, which is able to generate text from both imaged and textual inputs \cite{GPT4}, and is capable of helping professionals in solving
+doubts in a large number of fields.
+
+With time, the development of these models became increasingly complex and difficult, and this would be reflected on the number of iterations required for
+a model to reach the desired level of accuracy in its predictions. Moreover, the application of these techniques on areas where little data was available
+in made this development even harder. Some companies even started to employ its own resources for gathering new data to train their models, which led to a model
+having more iterations as the available data grew. Summarizing, a model (and even a dataset) can become complex structures that have many evolutionary
+stages within their lifecycle.
+
+Many organisations, aware of the increasing complexity of the lifecycle of datasets and models, saw a market opportunity to develop systems that would manage
+these lifecycles in an organized and efficient way, producing the AI and dataset configuration management tools, such as MLFlow \cite{MLflow}, DVC, which where
+open source and available to everyone, as well as premium tools such as Neptune.ai, which are paid \acrfull{PaaS} that provide even further monitoring
+capabilities.
+
+The aim of this Final Degree Project is to tackle this issue in a specific particular case. In the coming subsections, the reasons that motivated the elaboration
+of this project, along with the challenges it faces and how will them be solved, will be thoroughly described. Finally, an overview of the structure of the document
+will be given, so as to give readers the necessary information to follow the development documentation of the project.
 \section{Motivation}
 
 It is of common knowledge that Artificial Intelligence has gained significant importance in the 2020s. The development of tools such as the GPT models
@@ -25,40 +47,52 @@ The aim of MADTrack is to develop a system that establishes a real configuration
 both new and existing datasets and models in a distributed, remote environment, and that will make the best use of the available resources the company dedicates
 to this management.
 
-\section{Contexto disciplinar y tecnológico}
-También se puede denominar \emph{<<Antecedentes>>} o \emph{<<Estado del arte>>} cuando se trata de comentar trabajos relacionados que han abordado la cuestión u objetivo planteado. En esta sección se debería introducir el \emph{contexto disciplinar y tecnológico} en el que se desarrolla el trabajo de modo que ayude a entender con facilidad su ámbito y alcance. Puesto que un TFG no tiene que ser necesariamente un trabajo con aportes novedosos u originales, solo es necesario la inclusión de \emph{estado del arte} cuando este contribuya a aclarar aspectos clave del TFG o se desee justificar la originalidad del trabajo realizado.
+\section{Problematic and Solution}
 
-Para redactar un trabajo académico de modo efectivo se recomienda seguir pautas para obtener un resultado final claro y de lectura fácil, como las expuestas en el blog de Leonor Zozaya~\cite{zozaya17} o el apartado de comunicación eficaz del Departamento de Lengua y Estilo de la UOC~\cite{uoc}.
+The main problematic to be tackled in this Final Degree Project is the lack of a real configuration management protocol over the produced datasets and models, the difficulty at
+not only determinating the correct configuration, but also bringing it to the environment where it is going to be used, and the need for establishing it from the methods used
+by the users so as to make the system familiar to them.
 
-A la hora de redactar el texto se debe poner especial atención para evitar el plagio\footnote{\url{https://www.uclm.es/areas/biblioteca/encuentra-informacion/perfiles/alumno/antiplagio}} respetando los derechos de propiedad intelectual~\cite{uc3m21} y el uso lícito de gráficos e imágenes procedentes de Internet que no sean de elaboración propia. En este sentido se sugiere la consulta del manual de la Universidad de Cantabria~\cite{unican18}. Dicho documento explica de modo conciso cómo incluir imágenes en un trabajo académico de modo apropiado.
+Furthermore, another problematic resides within the protocols and deployment requirements of the system, which may need special authentication protocols from
+the environment where the system is going to be deployed, as well as from the environment where the models and datasets are stored (which in turn may also differ
+from the one where the system is running in). All of this may result in the need to develop a distributed system, where many components interact with each other
+to satisfy a complex need. Moreover, the system must be easy to integrate in bigger workflows, so the study of the available pipelines the company uses and the 
+possible integration points of the system within them may be taken as another problem.
 
-Recuerda que el uso de herramientas de IA (Inteligencia Artificial) está permitida para la revisión de textos y conseguir una redacción final de mayor claridad.\footnote{\url{https://biblioteca.uclm.es/Investiga/Apoyoinvestigacion/IAeninvestigacion}} Por supuesto, también para conseguir emplear \LaTeX{} de modo correcto. Sin embargo, la inclusión directa de los textos generados mediante dichas herramientas es sancionable, ya que su autoría no puede ser atribuida a quien firma el TFG. La tabla~\ref{tab:ia} resume los comportamientos que deberías evitar durante la realización de tu TFG.
+Finally, the last problematic is the limitations of the company to dedicate resources for the storage of all the data produced by the model and dataset lifecycles.
+The developed system must, hence, make an efficient use of the resources available, so as to maximize the amount of data that could be stored and managed. Also,
+the system must be able to adapt to the needs of a growing company, where many requests may be taken concurrently.
 
-\begin{table}[H]%
-	\centering
-	\caption{Usos ilícitos de la IA en el TFG}
-	\label{tab:ia}
-	\begin{tabular}{ | p{0.3\linewidth} | p{0.3\linewidth} | p{0.3\linewidth} |}
-		\hline
-		\textbf{Uso de la IA} & \textbf{Descripción} & \textbf{Riesgo} \\
-		\hline
-		Generación completa o parcial de textos para la memoria.&
-		Presentar como propio un texto obtenido casi en su totalidad por una IA. &
-		\textbf{Plagio académico}: el autor no es quien firma el texto.\\
-		\hline
-		Evitar el trabajo intelectual o de análisis. &
-		Usar IA para hacer razonamientos, interpretaciones o críticas sin comprensión real. &
-		Viola los principios de \textbf{evaluación auténtica} y aprendizaje significativo. \\
-		\hline
-		Falsificación de datos. & Generar datos simulados o inexistentes para experimentos, encuestas o estadísticas. &
-		Constituye \textbf{fraude académico}.\\
-		\hline
-		Traducción automática sin revisión. &
-		Entregar traducciones automáticas sin control de calidad. &
-		Puede derivar en \textbf{errores conceptuales}.\\
-		\hline
-	\end{tabular}
-\end{table}
+For the resolution of all these three problems, the system will be formed by a server that will satisfy requests and perform the necessary storage and
+fetching operations to bring both the datasets and the models to the users, whilst the client will be a library that enables the integration of the
+necessary items into the configuration management, sending the evolutionary changes of a dataset or model to the server that stores them.
+
+
+%\begin{table}[H]%
+%	\centering
+%	\caption{Usos ilícitos de la IA en el TFG}
+%	\label{tab:ia}
+%	\begin{tabular}{ | p{0.3\linewidth} | p{0.3\linewidth} | p{0.3\linewidth} |}
+%		\hline
+%		\textbf{Uso de la IA} & \textbf{Descripción} & \textbf{Riesgo} \\
+%		\hline
+%		Generación completa o parcial de textos para la memoria.&
+%		Presentar como propio un texto obtenido casi en su totalidad por una IA. &
+%		\textbf{Plagio académico}: el autor no es quien firma el texto.\\
+%		\hline
+%		Evitar el trabajo intelectual o de análisis. &
+%		Usar IA para hacer razonamientos, interpretaciones o críticas sin comprensión real. &
+%		Viola los principios de \textbf{evaluación auténtica} y aprendizaje significativo. \\
+%		\hline
+%		Falsificación de datos. & Generar datos simulados o inexistentes para experimentos, encuestas o estadísticas. &
+%		Constituye \textbf{fraude académico}.\\
+%		\hline
+%		Traducción automática sin revisión. &
+%		Entregar traducciones automáticas sin control de calidad. &
+%		Puede derivar en \textbf{errores conceptuales}.\\
+%		\hline
+%	\end{tabular}
+%\end{table}
 
 
 \section{Estructura del documento}
