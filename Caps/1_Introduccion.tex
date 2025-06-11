@@ -2,30 +2,31 @@
 \label{cap:Introduction}
 
 With the passage of time, the development of \acrfull{AI} has become of increasing interest due to the powerful tools it can provide to any
-organisation \cite{AIRise}. Since the developmet of \emph{The Bombe}, the machine that was able to decode the \emph{Enigma} machine in 1939,
+organisation \cite{AIRise}. Since the development of \emph{The Bombe}, the machine that was able to decode the \emph{Enigma} machine in 1939,
 passing through a whole set of ups and downs and even a silent winter before its comeback in 2015 thanks to Deep Learning, Artificial Intelligence
-is being applied in a number of fields, sometimes even reaching the point of having the potential to threatening human safety and raising awareness
+is being applied in a number of fields, sometimes even reaching the point of having the potential of threatening human safety and raising awareness
 of the need of regulations for its use.
 
 The development of these models has been made possible thanks to the contribution of a number of organisations, such as Google, Microsoft and OpenAI,
-which invested an objectively significant amount of time and money (reaching a total investment of 24.0 billion dollars in 2018) to develop systems as
+which invested an objectively significant amount of time and money (reaching a total investment of 24.0 billion dollars in 2018 \cite{AIRise}) to develop systems as
 broad as the GPT-4 model, which is able to generate text from both imaged and textual inputs \cite{GPT4}, and is capable of helping professionals in solving
 doubts in a large number of fields.
 
-With time, the development of these models became increasingly complex and difficult, and this would be reflected on the number of iterations required for
+With time, the development of these models became increasingly complex and difficult, and this would be reflected in the number of iterations required for
 a model to reach the desired level of accuracy in its predictions. Moreover, the application of these techniques on areas where little data was available
-in made this development even harder. Some companies even started to employ its own resources for gathering new data to train their models, which led to a model
+made this development even harder. Some companies even started to employ their own resources to gather new data to train their models, which led to a model
 having more iterations as the available data grew. Summarizing, a model (and even a dataset) can become complex structures that have many evolutionary
 stages within their lifecycle.
 
 Many organisations, aware of the increasing complexity of the lifecycle of datasets and models, saw a market opportunity to develop systems that would manage
 these lifecycles in an organized and efficient way, producing the AI and dataset configuration management tools, such as MLFlow \cite{MLflow}, DVC, which where
-open source and available to everyone, as well as premium tools such as Neptune.ai, which are paid \acrfull{PaaS} that provide even further monitoring
+open source and available to everyone, as well as premium tools such as Neptune.ai, which are \acrfull{PaaS} that provide even further monitoring
 capabilities.
 
 The aim of this Final Degree Project is to tackle this issue in a specific particular case. In the coming subsections, the reasons that motivated the elaboration
-of this project, along with the challenges it faces and how will them be solved, will be thoroughly described. Finally, an overview of the structure of the document
+of this project, along with the challenges it faces and how they will be solved, will be thoroughly described. Finally, an overview of the structure of the document
 will be given, so as to give readers the necessary information to follow the development documentation of the project.
+
 \section{Motivation}
 
 It is of common knowledge that Artificial Intelligence has gained significant importance in the 2020s. The development of tools such as the GPT models
@@ -41,25 +42,25 @@ images, which may be periodically added to the existing datasets, or even used t
 
 This continuous rise of the available models and datasets, paired with a lack of a real control protocol over the new and improved versions of an AI model or dataset,
 has led often to chaotic situations where an abnormal amount of time is taken on looking for the desired dataset, and accessing the necessary training configuration
-that produced an specific result on a model.
+that produced an specific result.
 
 The aim of MADTrack is to develop a system that establishes a real configuration management basis for these datasets and AI models. A system that can integrate
 both new and existing datasets and models in a distributed, remote environment, and that will make the best use of the available resources the company dedicates
 to this management.
 
-\section{Problematic and Solution}
+\section{Problems and Solutions}
 
-The main problematic to be tackled in this Final Degree Project is the lack of a real configuration management protocol over the produced datasets and models, the difficulty at
-not only determinating the correct configuration, but also bringing it to the environment where it is going to be used, and the need for establishing it from the methods used
+The main problem to be tackled in this Final Degree Project is the lack of a real configuration management protocol over the produced datasets and models, the difficulty at
+not only determining the correct configuration, but also bringing it to the environment where it is going to be used, and the need for establishing it from the methods used
 by the users so as to make the system familiar to them.
 
-Furthermore, another problematic resides within the protocols and deployment requirements of the system, which may need special authentication protocols from
+Furthermore, another problem resides within the protocols and deployment requirements of the system, which may need special authentication protocols from
 the environment where the system is going to be deployed, as well as from the environment where the models and datasets are stored (which in turn may also differ
 from the one where the system is running in). All of this may result in the need to develop a distributed system, where many components interact with each other
 to satisfy a complex need. Moreover, the system must be easy to integrate in bigger workflows, so the study of the available pipelines the company uses and the 
 possible integration points of the system within them may be taken as another problem.
 
-Finally, the last problematic is the limitations of the company to dedicate resources for the storage of all the data produced by the model and dataset lifecycles.
+Finally, the last problem is the limitations of the company to dedicate resources for the storage of all the data produced by the model and dataset lifecycles.
 The developed system must, hence, make an efficient use of the resources available, so as to maximize the amount of data that could be stored and managed. Also,
 the system must be able to adapt to the needs of a growing company, where many requests may be taken concurrently.
 
@@ -95,23 +96,23 @@ necessary items into the configuration management, sending the evolutionary chan
 %\end{table}
 
 
-\section{Estructura del documento}
-Este capítulo suele finalizar con una sección en la que se indica la estructura (capítulos) del documento y el contenido de cada una de las partes en que se divide. Veamos a continuación cómo sería esta sección para este documento en concreto.
+\section{Document Structure}
 
-A lo largo de los capítulos que componen esta guía se muestran ejemplos de elementos de organización del texto en un documento preparado con \LaTeX{}. Los ejemplos mencionados, así como los recogidos en obras de referencia, se pueden emplear para adaptar este documento a las necesidades particulares  \cite{lamport94,wikibookLaTex10}. Entre las obras de consulta disponibles sobre \LaTeX{} se recomienda el uso de las obras gratuitas en español~\cite{oetiker14,borbon21} y las guías disponibles en la página web de \href{https://es.overleaf.com/learn}{Overleaf} (en inglés).
-
-En esta plantilla de TFG se ha optado por seguir la estructura orientativa que puede tener un TFG en la \mbox{ESI-UCLM}. Esta estructura consta de los capítulos siguientes:
+According to the steps necessary to fully describe the elaboration process of this Final Degree Project, the following structure has been decided:
 
 \begin{enumerate}
-\item \textbf{Introducción}. Donde se trata la motivación y la pertinencia del trabajo. Prosigue con el enunciado conciso del propósito del trabajo y la descripción de su contexto disciplinar y técnico.
 
-\item \textbf{Objetivo}. En el que se detalla el alcance del objetivo general y los secundarios del trabajo.
+\item \textbf{Introduction}. The domain and main problematics are described, as well as what is the solutions the project will establish to these problematics.
 
-\item \textbf{Plan de gestión del trabajo}. Describe la estrategia para abordar las distintas fases del trabajo. 
+\item \textbf{Objective}. The main objective, as well as the specific objectives of the project, are enumerated and detailed.
+
+\item \textbf{State-of-the-art research}. This chapter contains the results of an extensive research and study of all the concepts and technologies relevant to the development of the project.
+
+\item \textbf{Methodology}. Description of the development framework and methodology to be used, and its specific application to the development of the project.
 
 \item \textbf{Desarrollo y resultados}. En este capítulo se explica cómo se han llevado a cabo las fases del trabajo cumpliendo el plan previsto y enumerando los resultados obtenidos.
 
-\item \textbf{Conclusiones}. En el que se realiza una discusión sobre los resultados obtenidos y cómo estos satisfacen los objetivos planteados. Además, se justifica la aplicación al TFG de las competencias adquiridas durante los estudios de grado. También, puede incluir una explicación sobre los trabajos derivados y futuros si estos están planificados o iniciados, así como una breve valoración personal.
+\item \textbf{Conclusions}. A summary of the achieved results will be made, as well as the proposal of the future work to be carried out on this project.
 
 \item \textbf{Bibliografía}. Lista de las referencias bibliográficas que se hayan citado en el texto. Recuerda que no debes incluir fuentes de información relacionada que no hayas citado explícitamente en la memoria.
 
