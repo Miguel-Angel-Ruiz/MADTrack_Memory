@@ -1,37 +1,45 @@
-\chapter{Objetivo}
-\label{cap:Objetivo}
-Este es un capítulo que explica en detalle el objetivo general del trabajo y los  objetivos secundarios, si el principal admite una descomposición en módulos o componentes. 
+\chapter{Objective}
+\label{cap:Objective}
 
-Es muy importante definir el objetivo de modo apropiado. Este debe concretar y exponer detalladamente el problema a resolver, el entorno de trabajo, la situación y qué se pretende obtener. También puede contemplar las limitaciones y requisitos a considerar para la resolución del problema.
+The main aim of this chapter is to define the main objective of the project, and also enumerate and detail the specific objectives that will be necessary to fulfill so as to
+achieve this main objective. The definition of the objective and the specific objectives has the pupose of providing a better explanation of the work that will be carried out
+within the scope of the project, and to provide an indicator of its good progress.
 
+\section{Main Objective}
 
-\section{El objetivo de un proyecto de ingeniería}
-Una de las tareas más complicadas al proponer un TFG es plantear su \textsf{Objetivo}. La dificultad deriva de la falta de consenso respecto de lo que se entiende por \emph{objetivo} en un trabajo de esta naturaleza. En primer lugar, se debe distinguir entre dos tipos de objetivo:
+The main aim of the project is to produce a system capable to track the configuration of datasets and \acrshort{AI} models, and is easy to integrate in the internal workflows
+and pipelines of the end user (UBOTICA Technologies). The system will also be characterized by its distributed nature, its scalability (it will
+make efficient use of the resources, so that an increase on the resources or number of users will make a minimal impact on the system's performance), security (the system must
+be prepared for possible attacks, specially from injection and buffer overflow attacks) and robustness (Upon the case of minor failures, the system must not go down and provide
+adequate and meaningful logging).
 
-\begin{enumerate}[(A)]
-	\item La \emph{finalidad específica} del TFG que se plantea para resolver una problemática concreta aplicando los métodos y herramientas adquiridos durante la formación académica. Por ejemplo, \emph{<<Desarrollo de una aplicación software para gestionar reservas hoteleras \emph{on-line}>>}.
-	
-	\item El \emph{propósito académico} que la realización de un TFG tiene en la formación de un/a graduado/a. Por ejemplo, demostración de la adquisición de las competencias \emph{específicas de la especialización} cursada y de aquellas \emph{competencias transversales} ligadas a la realización del TFG.
-\end{enumerate}
+The system will provide user-friendly mechanisms for accessing the dataset and model configuration database, so the users can make operations on this configuration directly from
+their codespaces.
 
-En el ámbito de la memoria del TFG se tiene que definir el primer tipo de objetivo, mientras que el segundo tipo es el que se añade al elaborar la propuesta de un TFG presentada ante un comité para su aprobación. \emph{Este segundo tipo de objetivo no se debe incluir en la memoria y en todo caso hacerse en la sección de conclusiones.}\footnote{En algunas titulaciones es obligatorio que la memoria explique las competencias específicas alcanzadas con la realización del trabajo.}
+\section{Specific Objectives}
 
-Un objetivo bien planteado debe estar determinado en términos del \emph{<<producto final>>} esperado que resuelve un problema específico. Por tanto, debería quedar determinado por un sustantivo \emph{concreto} y \emph{medible}. El objetivo planteado puede pertenecer a una de las categorías que se indica a continuación:
+The aforementioned main objective can be divided into a set of partial objectives, also referred to as subobjectives. This final project can be divided into -- subobjectives
+that will mark the development progress of the project, which could be in turn considered as finished when all of the subobjectives have been completed, and the resulting system
+satisfies the specifications of the main objective.
+
 \begin{itemize}
-	\item \emph{Diseño y desarrollo de <<artefactos>>}. Es un objetivo habitual en las ingenierías. Por la naturaleza de los programas informáticos (software), los trabajos que implican su diseño suelen contemplar también el desarrollo o implementación de prototipos. Esto es menos frecuente en otras áreas de ingeniería en las que claramente se separa la fase de diseño o realización de un proyecto, frente a la ejecución del mismo (p.~ej.,~ingeniería civil, arquitectura, etc.). 
-    
-	\item \emph{Estudio} que ofrece información novedosa sobre un tema (usual en las ramas de ciencias y humanidades). 
-    
-	\item \emph{Validación de una hipótesis} de partida. Este tipo de objetivo es propio de los trabajos científicos, pero menos habitual en el caso de los TFG.
+	\item \emph{Development and deployment plannning of a server able to track the configuration of \acrshort{AI} models and datasets.}
+	
+	A planning will be made regarding the deployment details and the necessary infrastructure to be able to hold the Tracking server that will satisfy the requests from the
+	other components of the system. These details involve the necessary hardware requirements (Memory, CPU cores, network configuration, available ports ) and 
+	software requirements (dependencies and entrypoint scripts) that will be used to design and develop the tracking server, which will be deployed in the future inside of the
+	company's intranet infrastructure. It is also necessary to specify how this server will interact with the rest of components of the system and when should it be 
+	deployed so as to ensure its well-functioning.
+
+	\item \emph{Development of a library module that manages the configuration management of datasets. Registering changes on their contents.}
+	
+	Aside from the tracking server, multiple library components will be necessary to manage the configuration of datasets and models. Some of these components will be developed
+	under a module that will handle issues regarding the configuration management of datasets. These components will focus on providing code mechanisms that enable the integration
+	of new datasets into the system, as well as providing the necessary means to bring the datasets in a specific evolutionary stage to the users.
+
+	\item \emph{Development of a library module that manages the configuration management of AI models, and facilitates the search of models according to their performance.}
+	
+	Other components of the library will be gathered within a module focused on managing the configuration of Artificial Intelligence models. These components will interact
+	with the tracking server in order to track the parameters and metrics produced by the experimental runs of the models performed by the company, and register the final models
+	and any other file meaningful to these inside a database.
 \end{itemize}
-
-Estas categorías no son excluyentes, de modo que es posible plantear un trabajo cuyo objetivo sea el diseño y desarrollo de un <<artefacto>> y este implique un estudio previo o la validación de alguna hipótesis para guiar el proceso. En cualquier caso, cuando el objetivo sea lo suficientemente amplio es conveniente su descomposición en elementos más simples hablando de \emph{objetivos secundarios} o \emph{subobjetivos}. Por ejemplo, un programa informático se podría descomponer en módulos o requerir un estudio previo para plantear un nuevo algoritmo que será preciso validar. 
-
-La descomposición de un objetivo principal en subobjetivos u objetivos secundarios debe ser natural (no forzada), bien justificada y sólo pertinente en los trabajos de gran amplitud.
-
-Junto con la definición del objetivo del trabajo se puede especificar los \emph{requisitos} que debe satisfacer la solución aportada. Estos requisitos especifican \emph{características} que debe poseer la solución y las \emph{restricciones} que acotan su alcance. En el caso de un trabajo cuyo objetivo es el desarrollo de un <<artefacto>> o sistema, los requisitos pueden ser \emph{funcionales} (qué debe hacer el sistema) y \emph{no funcionales} (cómo debe ser el sistema). 
-
-Al redactar el objetivo de un TFG se puede confundir los medios con el fin. De este modo a veces se define un objetivo en términos de las \emph{acciones} (verbos) o \emph{tareas} necesarias para alcanzarlo. Sin embargo, aunque no definen el objetivo, es apropiado descomponer este en \emph{hitos} y \emph{tareas} para facilitar la \emph{planificación} del trabajo.
-
-La categoría del objetivo planteado justifica modificaciones en la organización genérica de la memoria del trabajo. Por ejemplo, en el caso de estudios y validación de hipótesis, el apartado de conclusiones debería incluir los resultados de experimentación y los comentarios de cómo estos validan o refutan la hipótesis planteada.
-
