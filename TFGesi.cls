@@ -20,7 +20,7 @@
 
 \SetupKeyvalOptions{family=ESI, prefix=ESI@}
 
-\DeclareBoolOption[false]{spanish} % Por defecto idioma español (False)
+\DeclareBoolOption[true]{spanish} % Por defecto idioma español (False)
 \DeclareComplementaryOption{english}{spanish} % Modo borrador (True)
 \DeclareBoolOption[true]{pageonfooter} % Nº de página en el pie (False)
 \DeclareStringOption[normal]{device} % Dispositivo de salida (pdftex)
@@ -421,6 +421,11 @@
 % GLOSARIO
 % -------------------------
 \RequirePackage[acronym]{glossaries}
+
+% -------------------------
+% TABLAS GRANDES
+% -------------------------
+\usepackage{longtable}
 
 % -------------------------
 % INCLUSIÓN DE MENÚS, PATHS Y TECLAS

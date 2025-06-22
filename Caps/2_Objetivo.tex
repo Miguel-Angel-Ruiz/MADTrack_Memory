@@ -2,16 +2,16 @@
 \label{cap:Objective}
 
 The main aim of this chapter is to define the main objective of the project, and also enumerate and detail the specific objectives that will be necessary to fulfill so as to
-achieve this main objective. The definition of the objective and the specific objectives has the pupose of providing a better explanation of the work that will be carried out
+achieve it. The definition of objectives serves the pupose of providing a better explanation of the work that will be carried out
 within the scope of the project, and to provide an indicator of its good progress.
 
 \section{Main Objective}
 
-The main aim of the project is to produce a system capable to track the configuration of datasets and \acrshort{AI} models, and is easy to integrate in the internal workflows
+The main aim of the project is to produce a system capable of tracking the configuration of datasets and \acrshort{AI} models, and is easy to integrate in the internal workflows
 and pipelines of the end user (UBOTICA Technologies). The system will also be characterized by its distributed nature, its scalability (it will
 make efficient use of the resources, so that an increase on the resources or number of users will make a minimal impact on the system's performance), security (the system must
-be prepared for possible attacks, specially from injection and buffer overflow attacks) and robustness (Upon the case of minor failures, the system must not go down and provide
-adequate and meaningful logging).
+be prepared for possible attacks, specially from injection and buffer overflow attacks) and robustness (Upon the case of minor failures, the system must remain operational and provide
+adequate, meaningful logging).
 
 The system will provide user-friendly mechanisms for accessing the dataset and model configuration database, so the users can make operations on this configuration directly from
 their codespaces.
@@ -23,13 +23,13 @@ that will mark the development progress of the project, which could be in turn c
 satisfies the specifications of the main objective.
 
 \begin{itemize}
-	\item \emph{Development and deployment plannning of a server able to track the configuration of \acrshort{AI} models and datasets.}
+	\item \emph{Development and deployment planning of a server able to track the configuration of \acrshort{AI} models and datasets.}
 	
-	A planning will be made regarding the deployment details and the necessary infrastructure to be able to hold the Tracking server that will satisfy the requests from the
+	A planning will be made regarding the deployment details and the necessary infrastructure to be able to host the Tracking server that will satisfy the requests from the
 	other components of the system. These details involve the necessary hardware requirements (Memory, CPU cores, network configuration, available ports ) and 
 	software requirements (dependencies and entrypoint scripts) that will be used to design and develop the tracking server, which will be deployed in the future inside of the
 	company's intranet infrastructure. It is also necessary to specify how this server will interact with the rest of components of the system and when should it be 
-	deployed so as to ensure its well-functioning.
+	deployed so as to ensure its proper functioning.
 
 	\item \emph{Development of a library module that manages the configuration management of datasets. Registering changes on their contents.}
 	

@@ -166,3 +166,339 @@ parent={},%
 %
 }%
 
+\glsdefs@newdocentry{DL}%
+{%
+name={\acronymfont {\glsentryshort {DL}}},%
+sort={DL},%
+type={acronym},%
+first={DL},%
+firstplural={DLs},%
+text={DL},%
+plural={DLs},%
+description={Deep Learning},%
+descriptionplural={Deep Learning},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Deep Learning},%
+longplural={Deep Learnings},%
+short={DL},%
+shortplural={DLs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{IDE}%
+{%
+name={\acronymfont {\glsentryshort {IDE}}},%
+sort={IDE},%
+type={acronym},%
+first={IDE},%
+firstplural={IDEs},%
+text={IDE},%
+plural={IDEs},%
+description={Interactive Development Environment},%
+descriptionplural={Interactive Development Environment},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Interactive Development Environment},%
+longplural={Interactive Development Environments},%
+short={IDE},%
+shortplural={IDEs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{API}%
+{%
+name={\acronymfont {\glsentryshort {API}}},%
+sort={API},%
+type={acronym},%
+first={API},%
+firstplural={APIs},%
+text={API},%
+plural={APIs},%
+description={Application Programming Interface},%
+descriptionplural={Application Programming Interface},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Application Programming Interface},%
+longplural={Application Programming Interfaces},%
+short={API},%
+shortplural={APIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{UI}%
+{%
+name={\acronymfont {\glsentryshort {UI}}},%
+sort={UI},%
+type={acronym},%
+first={UI},%
+firstplural={UIs},%
+text={UI},%
+plural={UIs},%
+description={User Interface},%
+descriptionplural={User Interface},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={User Interface},%
+longplural={User Interfaces},%
+short={UI},%
+shortplural={UIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{CRUD}%
+{%
+name={\acronymfont {\glsentryshort {CRUD}}},%
+sort={CRUD},%
+type={acronym},%
+first={CRUD},%
+firstplural={CRUDs},%
+text={CRUD},%
+plural={CRUDs},%
+description={Create-Read-Update-Delete},%
+descriptionplural={Create-Read-Update-Delete},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Create-Read-Update-Delete},%
+longplural={Create-Read-Update-Deletes},%
+short={CRUD},%
+shortplural={CRUDs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{LLMs}%
+{%
+name={\acronymfont {\glsentryshort {LLMs}}},%
+sort={LLMs},%
+type={acronym},%
+first={LLMs},%
+firstplural={LLMss},%
+text={LLMs},%
+plural={LLMss},%
+description={Large Language Models},%
+descriptionplural={Large Language Models},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Large Language Models},%
+longplural={Large Language Modelss},%
+short={LLMs},%
+shortplural={LLMss},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{MPM}%
+{%
+name={\acronymfont {\glsentryshort {MPM}}},%
+sort={MPM},%
+type={acronym},%
+first={MPM},%
+firstplural={MPMs},%
+text={MPM},%
+plural={MPMs},%
+description={Model Product Monitoring},%
+descriptionplural={Model Product Monitoring},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Model Product Monitoring},%
+longplural={Model Product Monitorings},%
+short={MPM},%
+shortplural={MPMs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{CICD}%
+{%
+name={\acronymfont {\glsentryshort {CICD}}},%
+sort={CI/CI},%
+type={acronym},%
+first={CI/CI},%
+firstplural={CI/CIs},%
+text={CI/CI},%
+plural={CI/CIs},%
+description={Continuous Integration/Continuous Deployment},%
+descriptionplural={Continuous Integration/Continuous Deployment},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Continuous Integration/Continuous Deployment},%
+longplural={Continuous Integration/Continuous Deployments},%
+short={CI/CI},%
+shortplural={CI/CIs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{DSDM}%
+{%
+name={\acronymfont {\glsentryshort {DSDM}}},%
+sort={DSDM},%
+type={acronym},%
+first={DSDM},%
+firstplural={DSDMs},%
+text={DSDM},%
+plural={DSDMs},%
+description={Dynamic System Development Method},%
+descriptionplural={Dynamic System Development Method},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Dynamic System Development Method},%
+longplural={Dynamic System Development Methods},%
+short={DSDM},%
+shortplural={DSDMs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{RAD}%
+{%
+name={\acronymfont {\glsentryshort {RAD}}},%
+sort={RAD},%
+type={acronym},%
+first={RAD},%
+firstplural={RADs},%
+text={RAD},%
+plural={RADs},%
+description={Rapid Application Development},%
+descriptionplural={Rapid Application Development},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Rapid Application Development},%
+longplural={Rapid Application Developments},%
+short={RAD},%
+shortplural={RADs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{CTO}%
+{%
+name={\acronymfont {\glsentryshort {CTO}}},%
+sort={CTO},%
+type={acronym},%
+first={CTO},%
+firstplural={CTOs},%
+text={CTO},%
+plural={CTOs},%
+description={Chief Technical Officer},%
+descriptionplural={Chief Technical Officer},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Chief Technical Officer},%
+longplural={Chief Technical Officers},%
+short={CTO},%
+shortplural={CTOs},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{IoT}%
+{%
+name={\acronymfont {\glsentryshort {IoT}}},%
+sort={IoT},%
+type={acronym},%
+first={IoT},%
+firstplural={IoTs},%
+text={IoT},%
+plural={IoTs},%
+description={Internet of Things},%
+descriptionplural={Internet of Things},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Internet of Things},%
+longplural={Internet of Thingss},%
+short={IoT},%
+shortplural={IoTs},%
+counter={page},%
+parent={},%
+%
+}%
+
