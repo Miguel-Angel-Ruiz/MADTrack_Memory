@@ -1,0 +1,1021 @@
+\chapter{Annex: Prototype details}
+\label{cap:Protodet}
+
+\section {Prototype \emph{G1}}
+
+\subsection{Design for prototype \emph{G1}}
+
+\subsubsection{Components' contents for prototype \emph{G1}}
+\paragraph{Commit Manager}\mbox{}\\
+
+The attributes of this component are:
+
+\begin{itemize}
+    \item \texttt{repo\_path}: a character string that contains the path to the repository where the commits will be stored.
+\end{itemize}
+
+The methods of this component are:
+
+\begin{itemize}
+    \item \texttt{commitLocal}: processes changes over a repository to create a new version of it.
+    \item \texttt{commitRemote}: processes changes over a repository to create a new version of it and push it to a remote repository.
+    \item \texttt{checkoutCommit}: changes the pointer of the repository to a specific commit. The effect of this method is that the changes made to a file are temporarily 
+    reverted to a previously defined state of the files within the repository. 
+    \item \texttt{findCommits}: Finds the commits within a repository that have a certain name, and stores them into a map object with the dates of the commits and their UID.
+    This is thought to be used for searching multiple commits within the same name in order to select to which one the user will switch to.Added in later development stages of the project due to a need encountered during the development of milestone 2.
+    \item \texttt{getCurrentCommitName}: returns the active commit's name. As well as the previous method, it was developed on a later development stage to satisfy a need encountered in other milestone.
+\end{itemize}
+
+\paragraph{Prototype \emph{G1} Class Relationships}
+
+\begin{itemize}
+    \item Dependency - Commit Manager $\rightarrow$ Commit Exceptions
+    \item Dependency - Commit Manager $\rightarrow$ GitPython
+\end{itemize}
+
+\subsection{Implementation for prototype \emph{G1}}
+
+\subsubsection{Commit Manager method flows} \mbox{}\\
+
+\textbf{Commit Manager - Constructor}
+\begin{enumerate}
+    \item When the function is called, the code validates the existence of a local repository on the specified path.
+    \item If the repository is not found, an existing exception for non-existing repositories is raised.
+    \item If the repository is found, the attribute \texttt{repo\_path} is set to the path of the repository.
+    \item The function returns the instance of the class.
+\end{enumerate}
+
+\textbf{Commit Manager - commitLocal}
+
+\begin{enumerate}
+    \item Upon being called, the function checks whether the repository is dirty (there are any uncommitted changes).
+    \begin{enumerate}
+        \item If the repository is not dirty (nothing is to be committed), an error for such situation is raised.
+    \end{enumerate}
+
+    \item If there are uncommitted changes, the function iterates over the list of files to be added for the commit.
+    \begin{enumerate}
+        \item If the file is not present within the repository or is present as a directory, a warning will be left on the logs as part of the handling routine of an exception
+        for such a situation.
+
+        \item If the file is present within the repository, but it has not any uncommitted changes, it is removed from the list of files to be added for the commit as part of 
+        handling an exception created for such a situation.
+    \end{enumerate}
+
+    \item Once all files have been checked, the function checks the validity of the provided commit message.
+    \begin{enumerate}
+        \item A commit message will be valid if it complies within the string validity standards: does not exceed length limitations, and the format passes a security check (it does not contain potential code injection substrings).
+        \item If a commit message is not valid, an error for such situation is raised.
+    \end{enumerate}
+
+    \item If the commit message is valid, the function adds the files to the commit list.
+    
+    \item Finally, the function commits the changes to the repository.
+    \begin{enumerate}
+        \item Should the commit transaction fail, the error shall be processed for the user to know and then returned in a logging message.
+    \end{enumerate}
+
+    \item The function returns the number of files that were committed.
+\end{enumerate}
+
+\textbf{Commit Manager - commitRemote}
+\begin{enumerate}
+    \item Upon being called, the function executes the \texttt{commitLocal} method.
+    \item Provided the success of the previous method call, the function pushes the changes to a remote repository.
+    \begin{enumerate}
+        \item Should the commit transaction fail, the error shall be processed for the user to know and then returned in a logging message.
+    \end{enumerate}
+    \item The function returns the number of files that were committed.
+\end{enumerate}
+
+\textbf{Commit Manager - checkoutCommit}
+\begin{enumerate}
+    \item Upon being called, the function checks whether the repository is dirty (there are any uncommitted changes).
+    \begin{enumerate}
+        \item If the repository is dirty (something is to be committed), an error for such situation is raised.
+    \end{enumerate}
+
+    \item the function checks whether the provided commit ID is valid (according to the string validity standards).
+    \begin{enumerate}
+        \item If the commit ID is not valid, an error for such situation is raised.
+    \end{enumerate}
+
+    \item Next, the function checks the validity of the instance number (one of the provided parameters). This instance number represents, among many commits with the same name, which one is to be checked out.
+    \begin{enumerate}
+        \item If the instance number is a negative number, an error for such situation is raised.
+    \end{enumerate}
+
+    \item The function checks whether there are commits with the provided name in the repository.
+    \begin{enumerate}
+        \item If no commits are found, an error for such situation is raised.
+    \end{enumerate}
+
+    \item If there are commits with the provided name, the function selects the commit holding the position specified by the instance parameter.
+    \begin{enumerate}
+        \item If the instance number is higher than the number of commits, the function selects the oldest commit with this name. On the other side, should this parameter not be specified, the latest instance will be selected.
+    \end{enumerate}
+
+    \item The function performs the checkout operation to the specified commit.
+
+    \item The function returns the position of the selected commit within the commit list.
+\end{enumerate}
+
+\textbf{Commit Manager - findCommits}
+\begin{enumerate}
+    \item The function uses \emph{GitPython} to instantly retrieve the list of commits in the repository.
+\end{enumerate}
+
+\textbf{Commit Manager - getCurrentCommitName}
+\begin{enumerate}
+    \item The function uses \emph{GitPython} to retrieve the first line of the active commit's message.
+\end{enumerate}
+
+
+\subsection{Testing for prototype \emph{G1}}
+
+\subsubsection{Equivalence classes for Commit Manager}
+
+\subparagraph{Commit Manager - Constructor} \mbox{}\\
+\begin{enumerate}
+    \item \texttt{repo\_path} exists, is a directory and contains a local repository.
+    \item \texttt{repo\_path} is not a valid Local Repository.
+\end{enumerate}
+
+\subparagraph{Commit Manager - commitLocal} \mbox{}\\
+\begin{enumerate}
+    \item The list of files to commit is not empty and the commit message is valid.
+    \item The repository to commit is not dirty.
+    \item The list of files to commit is empty.
+    \item The commit message is not valid.
+    \item After checking file validity, the list of files to commit is empty.
+\end{enumerate}
+
+\subparagraph{Commit Manager - checkoutCommit} \mbox{}\\
+\begin{enumerate}
+    \item All parameters are valid.
+    \item The commit ID is not valid.
+    \item The list of commits with the requested name is empty.
+    \item instance number is greater than the number of found commits.
+    \item instance number is negative.
+\end{enumerate}
+
+\section {Prototype \emph{D1}}
+
+\subsection{Design for prototype \emph{D1}}
+
+\paragraph{Prototype \emph{D1} components' contents}\mbox{}\\
+
+This paragraph will address the question of which information is stored by each of the classes and what functions will be contained within them. The methods of each component 
+are described within the following lists.
+
+\subparagraph{Dataset Tracker}\mbox{}\\
+
+
+The attributes of this component are:
+
+\begin{itemize}
+    \item \texttt{dataset\_repo\_path}: a character string that contains the path to a local repository where the dataset is stored. The component 
+    will always operate using this repository as reference. This repository may be a DVC repository, a Git repository, both or neither of these.
+\end{itemize}
+
+The methods of this component are:
+
+\begin{itemize}
+    \item \texttt{integrateDatasetRepo}: start the configuration management lifecycle for a dataset. This enables tracking the changes within any dataset (be it a 
+    file or directory) contained within the repository.
+
+    \item \texttt{changeDatasetToVersion}: changes the repository to the selected previous version, reverting the changes made to the tracked items to that version, 
+    if they are still tracked by the system on that version. If a list of item paths are passed as parameter, only those will be the ones whose changes will be 
+    reverted.
+
+    \item \texttt{isDatasetRepoIntegrated}: support method that checks if the dataset repository has been integrated into MADTrack's configuration management system. 
+    It can be used by users and by other classes within the module.
+
+\end{itemize}
+
+\subparagraph{Dataset Fetcher}\mbox{}\\
+
+The only attribute of this interface is:
+
+\begin{itemize}
+    \item \texttt{source\_location}: the path to the source repository.
+\end{itemize}
+
+The methods of this interface are:
+
+\begin{itemize}
+    \item \texttt{fetchDataset}: Method that fetches a dataset from the source location to the target location, then changes its version to the desired one. All of this
+    in the same transaction if needed.
+\end{itemize}
+
+\subparagraph{Local Dataset Fetcher}\mbox{}\\
+
+This is a especialized class implementing the \emph{Dataset Fetcher} interface, with domain to local repositories. It means this class is able to fetch datasets from a local 
+repository to another local repository.
+
+Apart from the attributes and methods inherited from the \emph{Dataset Fetcher} interface, this class has the following methods:
+
+\begin{itemize}
+    \item \texttt{createNewDatasetFromLocal}: Method that fetches a dataset from another local repository, then resets the change history to then create a new dataset, 
+    which is automatically integrated into MADTrack's configuration management system.
+\end{itemize}
+
+\subparagraph{Integration States}\mbox{}\\
+
+The possible states for this enum are:
+
+\begin{enumerate}
+    \item \textbf{Not Integrated}.
+    \item \textbf{Partially Integrated}.
+    \item \textbf{Fully Integrated}.
+\end{enumerate}
+
+\paragraph{Prototype \emph{D1} class relationships}\mbox{}\\
+
+Due to the Dataset Fetcher(s) and the Dataset Tracker components being an interface to be implemented by both the local and remote commit managers, they will contain 
+an implementation relationship with the Commit Manager component from the \texttt{configuration\_management} module. Now, the relationships among the components are:
+
+\begin{itemize}
+    \item Implementation - Local Dataset Fetcher $\rightarrow$ Dataset Fetcher
+    \item Dependency - Dataset Fetcher $\rightarrow$ Dataset Exceptions
+    \item Dependency - Dataset Tracker $\rightarrow$ Dataset Exceptions
+    \item Dependency - Dataset Fetcher $\rightarrow$ Dataset Tracker
+    \item Dependency - Dataset Tracker $\rightarrow$ configuration management module (Commit Manager)
+    \item Dependency - Dataset Tracker $\rightarrow$ GitPython
+    \item Dependency - Dataset Tracker $\rightarrow$ DVC
+    \item Dependency - Dataset Tracker $\rightarrow$ Integration States
+    \item Dependency - Dataset Fetcher $\rightarrow$ Integration States
+\end{itemize}
+
+\subsection{Implementation for prototype \emph{D1}}
+
+\paragraph{Dataset Tracker method flows} \mbox{}\\
+
+\subparagraph{Dataset Tracker - Constructor}
+
+\begin{enumerate}
+    \item When the function is called, the code validates the name of the dataset path provided as parameter for security purposes, its existence and its typing as a directory
+    (it must be a directory since it is or will be transformed into a Git repository).
+
+    \begin{enumerate}
+        \item If some of these validation checks failed, an error would be raised.
+    \end{enumerate}
+
+    \item The function stores the aforementioned parameter as an attribute and returns an instance of the class. 
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - integrateDatasetRepo}
+
+\begin{enumerate}
+    \item When the function is called, the function checks the integration state of the repository.
+    \begin{enumerate}
+        \item If the integration state of the repository is \emph{Fully Integrated}, the process ends. Making the function idempotent.
+        
+        \item If the integration state of the repository is \emph{Not Integrated}, Git is initialized in the repository. This operation will be idempotent if the repository is already initialized, so only Git internal errors may happen here.
+        Then, the function proceeds to step \emph{c}.
+
+        \item If the integration state of the repository is \emph{Partially Integrated}, the function initializes a DVC repository in the dataset before ending the process.
+    \end{enumerate}
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - changeDatasetToVersion}
+
+\begin{enumerate}
+    \item Upon being called, the function checks the integration state of the repository. Only if it is \emph{Fully Integrated} will the process continue, raising an error otherwise.
+    
+    \item The function checks the validity of the dataset version name parameter, as well as the version numbers. Any fail in these checks will raise an error.
+    
+    \item Checkout the repository to the specified version.
+    
+    \item Recheck the integration state of the repository, since it may not be the same as the one in the initial version. As on step 1, the function will not continue if the repository is not \emph{Fully Integrated}.
+    
+    \item The action course diverges depending on the presence of a list of strings with the specific dataset items to check out.
+    \begin{enumerate}
+        \item If no items are entered, the command  checkout will be executed on every item. Any failure will be communicated to the user before ending the process.
+        \item If a list of items is provided, the command checkout will be executed for each element of the list after confirming its validity. Any failure will be communicated to the user before continuing the iteration.
+    \end{enumerate}
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - isDatasetRepoIntegrated}
+
+\begin{enumerate}
+    \item Upon being called, it checks the validity of the dataset path and tries to verify it being a Git and a DVC repository.
+    \begin{enumerate}
+        \item If the dataset is not integrated with Git, the method will return a \emph{Not Integrated} state.
+        \item If the dataset is integrated with Git but not with DVC, the method will return a \emph{Partially Integrated} state.
+        \item If the dataset is integrated with Git and DVC, the method will return a \emph{Fully Integrated} state.
+    \end{enumerate}
+\end{enumerate}
+
+\paragraph{Dataset Fetcher method flows} \mbox{}\\
+
+\subparagraph{Local Dataset Fetcher - Constructor}
+
+\begin{enumerate}
+    \item When the function is called, the function checks the validity of the source path passed as a trackable dataset using an instance of DatasetTracker.
+    \item If the parameter is valid, it is stored as an attribute and the function returns an instance of the class.
+\end{enumerate}
+
+\subparagraph{Local Dataset Fetcher - fetchDataset}
+
+\begin{enumerate}
+    \item The function checks the validity of the minor and major version parameters. Raising an error if any of them were not valid.
+    \item Uses the private function \emph{copyDataset} to copy the dataset to the target location.
+    \item If no failures occur, the function ends.
+\end{enumerate}
+
+\subparagraph{Local Dataset Fetcher - createNewDatasetFromLocal}
+
+\begin{enumerate}
+    \item Upon being called, it uses the function fetchDatasetVersion to copy the dataset to the target location.
+    \item The change history is reset to then create a new dataset, which is automatically integrated into MADTrack's configuration management system.
+    \item If no failures occur, the function ends.
+\end{enumerate}
+
+\subsubsection{Testing for prototype \emph{D1}}
+
+For the testing phase of prototype \emph{D1}, the equivalence classes and test suites will be detailed on this subsection. Additionally, there will be a final section
+that will show the errors fixed during this phase.
+
+\paragraph{Equivalence classes for Dataset Tracker} \mbox{}\\
+
+\subparagraph{Dataset Tracker - Constructor} \mbox{}\\
+\begin{enumerate}
+    \item The path to the dataset does not pass the string validation check.
+    \item The path to the dataset passes the string validation check, but does not exist.
+    \item All of the above is passed, but now the dataset is no directory.
+    \item Every parameter and validation check goes fine.
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - integrateDatasetRepo} \mbox{}\\
+\begin{enumerate}
+    \item The dataset is not integrated.
+    \item The dataset repository is already integrated.
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - changeDatasetToVersion} \mbox{}\\
+\begin{enumerate}
+    \item The dataset repository is not integrated.
+    \item The dataset name does not pass the string validation check.
+    \item Either version number parameter does not pass the validation check.
+    \item The specified dataset does not exist.
+    \item Before checking out, the list of passed parameters is an empty list.
+    \item All parameters are valid.
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - isDatasetRepoIntegrated} \mbox{}\\
+\begin{enumerate}
+    \item The dataset is not a Git repository.
+    \item The dataset is a Git repository, but not a DVC repository.
+    \item The dataset is a Git repository and a DVC repository.
+\end{enumerate}
+
+\subparagraph{Dataset Fetcher - Constructor} \mbox{}\\
+\begin{enumerate}
+    \item The source location parameter is not valid.
+    \item The source location parameter is a valid, tracked dataset.
+\end{enumerate}
+
+\subparagraph{Dataset Fetcher - fetchDataset} \mbox{}\\
+\begin{enumerate}
+    \item The target location is not valid.
+    \item The major version parameter is not valid.
+\end{enumerate}
+
+\subparagraph{Dataset Fetcher - createNewDatasetFromLocal} \mbox{}\\
+\begin{enumerate}
+    \item The dataset location is not valid.
+    \item The version parameters are not valid
+    \item Every parameter is valid.
+\end{enumerate}
+
+\subsection{Testing for prototype \emph{D1}}
+
+\paragraph{Dataset Tracker method flows} \mbox{}\\
+
+\subparagraph{Dataset Tracker - Constructor}
+
+\begin{enumerate}
+    \item When the function is called, the code validates the name of the dataset path provided as parameter for security purposes, its existence and its typing as a directory
+    (it must be a directory since it is or will be transformed into a Git repository).
+
+    \begin{enumerate}
+        \item If some of these validation checks failed, an error would be raised.
+    \end{enumerate}
+
+    \item The function stores the aforementioned parameter as an attribute and returns an instance of the class. 
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - integrateDatasetRepo}
+
+\begin{enumerate}
+    \item When the function is called, the function checks the integration state of the repository.
+    \begin{enumerate}
+        \item If the integration state of the repository is \emph{Fully Integrated}, the process ends. Making the function idempotent.
+        
+        \item If the integration state of the repository is \emph{Not Integrated}, Git is initialized in the repository. This operation will be idempotent if the repository is already initialized, so only Git internal errors may happen here.
+        Then, the function proceeds to step \emph{c}.
+
+        \item If the integration state of the repository is \emph{Partially Integrated}, the function initializes a DVC repository in the dataset before ending the process.
+    \end{enumerate}
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - changeDatasetToVersion}
+
+\begin{enumerate}
+    \item Upon being called, the function checks the integration state of the repository. Only if it is \emph{Fully Integrated} will the process continue, raising an error otherwise.
+    
+    \item The function checks the validity of the dataset version name parameter, as well as the version numbers. Any fail in these checks will raise an error.
+    
+    \item Checkout the repository to the specified version.
+    
+    \item Recheck the integration state of the repository, since it may not be the same as the one in the initial version. As on step 1, the function will not continue if the repository is not \emph{Fully Integrated}.
+    
+    \item The action course diverges depending on the presence of a list of strings with the specific dataset items to check out.
+    \begin{enumerate}
+        \item If no items are entered, the command  checkout will be executed on every item. Any failure will be communicated to the user before ending the process.
+        \item If a list of items is provided, the command checkout will be executed for each element of the list after confirming its validity. Any failure will be communicated to the user before continuing the iteration.
+    \end{enumerate}
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - isDatasetRepoIntegrated}
+
+\begin{enumerate}
+    \item Upon being called, it checks the validity of the dataset path and tries to verify it being a Git and a DVC repository.
+    \begin{enumerate}
+        \item If the dataset is not integrated with Git, the method will return a \emph{Not Integrated} state.
+        \item If the dataset is integrated with Git but not with DVC, the method will return a \emph{Partially Integrated} state.
+        \item If the dataset is integrated with Git and DVC, the method will return a \emph{Fully Integrated} state.
+    \end{enumerate}
+\end{enumerate}
+
+\paragraph{Dataset Fetcher method flows} \mbox{}\\
+
+\subparagraph{Local Dataset Fetcher - Constructor}
+
+\begin{enumerate}
+    \item When the function is called, the function checks the validity of the source path passed as a trackable dataset using an instance of DatasetTracker.
+    \item If the parameter is valid, it is stored as an attribute and the function returns an instance of the class.
+\end{enumerate}
+
+\subparagraph{Local Dataset Fetcher - fetchDataset}
+
+\begin{enumerate}
+    \item The function checks the validity of the minor and major version parameters. Raising an error if any of them were not valid.
+    \item Uses the private function \emph{copyDataset} to copy the dataset to the target location.
+    \item If no failures occur, the function ends.
+\end{enumerate}
+
+\subparagraph{Local Dataset Fetcher - createNewDatasetFromLocal}
+
+\begin{enumerate}
+    \item Upon being called, it uses the function fetchDatasetVersion to copy the dataset to the target location.
+    \item The change history is reset to then create a new dataset, which is automatically integrated into MADTrack's configuration management system.
+    \item If no failures occur, the function ends.
+\end{enumerate}
+
+\subsubsection{Testing for prototype \emph{D1}}
+
+For the testing phase of prototype \emph{D1}, the equivalence classes and test suites will be detailed on this subsection. Additionally, there will be a final section
+that will show the errors fixed during this phase.
+
+\paragraph{Equivalence classes for Dataset Tracker} \mbox{}\\
+
+\subparagraph{Dataset Tracker - Constructor} \mbox{}\\
+\begin{enumerate}
+    \item The path to the dataset does not pass the string validation check.
+    \item The path to the dataset passes the string validation check, but does not exist.
+    \item All of the above is passed, but now the dataset is no directory.
+    \item Every parameter and validation check goes fine.
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - integrateDatasetRepo} \mbox{}\\
+\begin{enumerate}
+    \item The dataset is not integrated.
+    \item The dataset repository is already integrated.
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - changeDatasetToVersion} \mbox{}\\
+\begin{enumerate}
+    \item The dataset repository is not integrated.
+    \item The dataset name does not pass the string validation check.
+    \item Either version number parameter does not pass the validation check.
+    \item The specified dataset does not exist.
+    \item Before checking out, the list of passed parameters is an empty list.
+    \item All parameters are valid.
+\end{enumerate}
+
+\subparagraph{Dataset Tracker - isDatasetRepoIntegrated} \mbox{}\\
+\begin{enumerate}
+    \item The dataset is not a Git repository.
+    \item The dataset is a Git repository, but not a DVC repository.
+    \item The dataset is a Git repository and a DVC repository.
+\end{enumerate}
+
+\subparagraph{Dataset Fetcher - Constructor} \mbox{}\\
+\begin{enumerate}
+    \item The source location parameter is not valid.
+    \item The source location parameter is a valid, tracked dataset.
+\end{enumerate}
+
+\subparagraph{Dataset Fetcher - fetchDataset} \mbox{}\\
+\begin{enumerate}
+    \item The target location is not valid.
+    \item The major version parameter is not valid.
+\end{enumerate}
+
+\subparagraph{Dataset Fetcher - createNewDatasetFromLocal} \mbox{}\\
+\begin{enumerate}
+    \item The dataset location is not valid.
+    \item The version parameters are not valid
+    \item Every parameter is valid.
+\end{enumerate}
+
+\section {Prototype \emph{D2}}
+
+\subsection{Design for prototype \emph{D2}}
+
+\paragraph{Components' contents for prototype \emph{D2}} \mbox{}\\
+
+All of the contents added in this prototype belong to the Dataset Tracker component.
+
+\paragraph{Dataset Tracker} \mbox{}\\
+
+This component gained two new methods for this prototype:
+
+\begin{itemize}
+    \item \texttt{trackDatasetChanges: }given a directory or file path within the integrated dataset repository, commits its changes using MADTrack's dataset 
+    configuration management system. This means that if this is the first commit made to the item using MADTrack, the necessary mechanisms will be added to the 
+    repository to first register it as a tracked dataset.
+
+    \item \texttt{getCurrentDatasetName: }returns the name of the dataset that is currently being tracked, using the dataset versioning protocol described in \emph{section \ref{sec:versioningProtocol}}.
+\end{itemize}
+
+\paragraph{Class relationships for prototype \emph{D2}} \mbox{}\\
+
+The dependencies among classes do not change in comparison with the previous prototype. Hence, the relationships will be kept the same.
+
+\subsection{Implementation for prototype \emph{D2}}
+
+\paragraph{Dataset Tracker method flows} \mbox{}\\
+
+\subparagraph{Dataset Tracker - trackDatasetChanges} \mbox{}\\
+
+\begin{enumerate}
+    \item When the function is called, the function checks the integration state of the repository. Only if it is \emph{Fully Integrated} will the process continue.
+    \item The function checks the validity of the dataset path and dataset version name, as well as the existence of the dataset within the repository.
+    \item The function checks the validity of the dataset version numbers. They must not be negative.
+    \item The name of the dataset version is built automatically following the established order (see \emph{section \ref{sec:versioningProtocol}}), and the system checks whether the version already exists in the repository, raising an error if that is the case.
+    \item Given the dataset version is valid, dvc is called to track the dataset in the repository.
+    \begin{enumerate}
+        \item In case this dataset is already tracked by DVC, it will update the change index file to generate a new version of it.
+    \end{enumerate}
+
+    \item Finally, the function commits the changes made to the repository using the version name as the commit message.
+    \begin{enumerate}
+        \item If the remote flag is set, the function will execute a remote commit process.
+    \end{enumerate}
+\end{enumerate}
+
+
+\subparagraph{Dataset Tracker - getCurrentDatasetName} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function gets the current dataset's name using the Commit Manager.
+    \item If the function proceeds without errors, the function will return the dataset's name, in the format \emph{<dataset\_name> v<major\_version>.<minor\_version>}.
+\end{enumerate}
+
+\subsection{Testing for prototype \emph{D2}}
+
+\paragraph{Equivalence classes for Dataset Tracker} \mbox{}\\
+
+\subparagraph{Dataset Tracker - trackDatasetChanges} \mbox{}\\
+
+\begin{enumerate}
+    \item The dataset is not integrated.
+    \item The dataset item path is an invalid string.
+    \item The dataset version name is an invalid string.
+    \item Any of the version number parameters are invalid.
+    \item The specified dataset does not exist within the repository.
+    \item The specified dataset repo version is already registered.
+    \item All the parameters are valid.
+\end{enumerate}
+
+\section{Prototype \emph{M1}}
+
+\subsection{Design for prototype \emph{M1}}
+
+\paragraph{Components' contents for prototype \emph{M1}} \mbox{}\\
+
+These are the details of the aforementioned components. For the Tracking Server, the details about its deployment will be detailed in \emph{Chapter 8}.
+
+\paragraph{Experiment Manager}\mbox{}\\
+
+The attributes of this component are:
+
+\begin{itemize}
+    \item \texttt{tracking\_server\_config}: The configuration of the Active MadTrack Tracking server, which will be used for the creation of a client 
+    that manages the experiment operations. This is obtained in form of key-value pairs in the constructor method.
+\end{itemize}
+
+The methods that compose this component are:
+
+\begin{itemize}
+    \item \texttt{createExperiment}: creates an experiment with a given name and additional metadata.
+    \item \texttt{loadExperiment}: sets an existing experiment inside the Tracking Server as the active experiment.
+    \item \texttt{editExperiment}: edits the information existing experiment.
+    \item \texttt{deleteExperiment}: deletes an existing experiment.
+\end{itemize}
+
+\paragraph{Class relationships for prototype \emph{M1}} \mbox{}\\
+
+The dependencies within this prototype are highly marked by its Tracking Server component and the toolkits used (mainly consisting of MLFlow).
+
+\begin{itemize}
+    \item Dependency - Experiment Manager $\rightarrow$ Model Tracking Exceptions
+    \item Dependency - Experiment Manager $\rightarrow$ MLFlow
+    \item Dependency - Experiment Manager $\rightarrow$ Tracking Server
+    \item Dependency - Tracking Server $\rightarrow$ MLFlow
+\end{itemize}
+
+
+\subsection{Implementation for prototype \emph{M1}}
+
+\paragraph{Experiment Manager method flows} \mbox{}\\
+
+\subparagraph{Experiment Manager - Constructor} \mbox{}\\
+
+\begin{enumerate}
+    \item When the function is called, the code opens the configuration file (which must be present on the specified location) and reads 
+    it in YAML format, retrieving the specified configuration.
+
+    \item The function checks the validity of the configuration. The configuration is valid if it contains the necessary parameters to connect 
+    to the Tracking Server.
+
+    \item If the configuration is valid, the function sets it as the only attribute of the class. Otherwise, an error for such situation 
+    is raised.
+
+    \item The function returns the instance of the class.
+\end{enumerate}
+
+\subparagraph{Experiment Manager - createExperiment} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks the validity of the name parameter, as well as the metadata passed as parameter. The first 
+    must be a string and the second must be a dictionary of valid strings.
+
+    \item The function calls upon the MLFlow Tracking server, executing the call \texttt{create\_experiment}.
+
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Experiment Manager - loadExperiment} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks the validity of the experiment name provided as parameter. It must be a valid string.
+
+    \item The function calls upon the Tracking server, executing the call \texttt{set\_experiment}.
+
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Experiment Manager - editExperiment} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks the validity of the old and new experiment names provided as parameters, then checks 
+    the validity of the provided metadata. They must be valid strings or key-value pair structures of valid strings.
+
+    \item The function calls upon the Tracking Server, executing the call \texttt{rename\_experiment} and \texttt{set\_experiment\_tag}, provided that 
+    the parameters have been specified.
+
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Experiment Manager - deleteExperiment} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks the validity of the experiment name passed as parameter. It must be a valid string.
+
+    \item The function calls upon the Tracking Server, executing the call \texttt{delete\_experiment}.
+
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+
+\subsection{Testing for prototype \emph{M1}}
+
+\paragraph{Equivalence classes for Experiment Manager} \mbox{}\\
+
+\subparagraph{Experiment Manager - Constructor} \mbox{}\\
+
+\begin{enumerate}
+    \item The path to the Tracking Server configuration file is not valid.
+    \item All parameters are valid.
+\end{enumerate}
+
+\subparagraph{Experiment Manager - createExperiment} \mbox{}\\
+
+\begin{enumerate}
+    \item The provided experiment name is not valid.
+    \item The provided metadata is not valid.
+    \item All the parameters are valid.
+\end{enumerate}
+
+\subparagraph{Experiment Manager - loadExperiment} \mbox{}\\
+
+\begin{enumerate}
+    \item The provided target experiment's name is not valid.
+    \item All parameteres are valid.
+\end{enumerate}
+
+\subparagraph{Experiment Manager - editExperiment} \mbox{}\\
+
+\begin{enumerate}
+    \item The provided old experiment's name is not valid.
+    \item The provided new experiment's name is not valid.
+    \item The provided new metadata is not valid.
+    \item All parameters are valid.
+\end{enumerate}
+
+\subparagraph{Experiment Manager - deleteExperiment} \mbox{}\\
+
+\begin{enumerate}
+    \item The target experiment's name is not valid.
+    \item All parameters are valid.
+\end{enumerate}
+
+\section{Prototype \emph{M2}}
+
+\subsection{Design for prototype \emph{M2}}
+
+\paragraph{Components' contents for prototype \emph{M2}} \mbox{} \\
+
+The wide-ranging variety of logging tasks, requirements and available mechanisms provided by the toolkit makes this prototype the one with the most content of the
+project.
+
+\paragraph{Experiment Manager} \mbox{} \\
+
+This component only gains two new methods:
+
+\begin{itemize}
+    \item \texttt{createModelRun}: creates a new Model Run, and log any parameters provided by the user within its signature. These parameters include
+    datasets, parameters, hyperparameters, domain-specific parameters, code locations and even models.
+
+    \item \texttt{registerModel}: registers a new \acrshort{AI} model into the model registry, providing the model versioning and configuration management functionality.
+\end{itemize}
+
+\paragraph{Model Run} \mbox{} \\
+
+The Model Run contains two main attributes:
+
+\begin{itemize}
+    \item \texttt{model\_run\_name}: the name of the model run. It is a unique string for that experiment.
+    \item \texttt{experiment\_name}: the name of the experiment the model run belongs to.
+\end{itemize}
+
+This component mainly holds logging methods:
+
+\begin{itemize}
+    \item \texttt{Enter and Exit}: methods that allow the use of the \texttt{with} clause in Python, allowing users to temporarily create a run.
+    \item \texttt{getID}: retrieves the ID of the currently active model run.
+    \item \texttt{logParameters}: logs the parameters of the model run.
+    \item \texttt{logTrainingDatasets}: Logs the training datasets of the model run, as well as the portions of them used in an ordered manner.
+    \item \texttt{logValidationDatasets}: idem with validation datasets.
+    \item \texttt{logTestDatasets}: idem with test datasets.
+    \item \texttt{logTrainingCode}: Logs the training code of the model run.
+    \item \texttt{logHyperparameters}: Logs the hyperparameters of the model run.
+    \item \texttt{logRandomParameters}: Logs the random parameters of the model run.
+    \item \texttt{logDomainSpecificParameters}: Logs the domain-specific parameters of the model run.
+    \item \texttt{logMetrics}: Logs the metrics of the model run.
+    \item \texttt{logModel}: Logs the model of the model run. This model can be either a SKLearn model, a Pytorch or a Tensorflow model.
+    \item \texttt{logDeploymentState}: Logs the deployment state of the model run.
+\end{itemize}
+
+\paragraph{Class relationships for prototype \emph{M2}} \mbox{}\\
+
+The main relationship introduced by this prototype is the dependency between the Experiment Manager and the new component.
+
+\begin{itemize}
+    \item Dependency - Experiment Manager $\rightarrow$ Model Run
+    \item Dependency - Model Run $\rightarrow$ MLFlow
+    \item Dependency - Model Run $\rightarrow$ Tracking Server
+\end{itemize}
+
+\subsection{Implementation for prototype \emph{M2}}
+
+\paragraph{Experiment Manager method flows} \mbox{}\\
+
+\subparagraph{Experiment Manager - createModelRun} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function will create a new model run using a with clause.
+
+    \item The function checks what parameters have been passed to the function.
+
+    \item For each parameter, the function will perform the corresponding log function from the Mode lRun component.
+
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Experiment Manager - registerModel} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function will retrieve the active run's ID using the MLFlow library.
+    \item Using the run's ID and the rest of the parameters, the function automatically builds up an URI for the remote model.
+    \item The function logs the model using the ModelRun using the MLFlow library's \texttt{register\_model} method.
+\end{enumerate}
+
+\paragraph{Model Run method flows} \mbox{}\\
+
+\subparagraph{Model Run - Enter} \mbox{}\\
+\begin{enumerate}
+    \item Upon being called, the function starts a MLFlow run using the experiment name and the model run name.
+    \item The function logs the deployment state of the run as false (the model is not deployed yet, as it is being built).
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Model Run - Exit} \mbox{}\\
+\begin{enumerate}
+    \item Upon being called, the function finishes the MLFlow run.
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Model Run - getID} \mbox{}\\
+\begin{enumerate}
+    \item Upon being called, the function gets the current run's ID.
+    \item If the function proceeds without errors, the function will return the run's ID.
+\end{enumerate}
+
+\subparagraph{Model Run - logParameters} \mbox{}\\
+
+This function will proceed in a similar way for logHyperparameters/logRandomParameters/logDomainSpecificParameters:
+
+\begin{enumerate}
+    \item Upon being called, the function logs the parameters dictionary passed as a parameter.
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Model Run - logTrainingDatasets/logValidationDatasets/logTestDatasets} \mbox{}\\
+
+This method proceeds the same with the corresponding type of dataset:
+
+\begin{enumerate}
+    \item Upon being called, the function checks that the dataset portions parameter is a list of floats.
+    \item The function logs the list of dataset names, and an additional parameter with the portions of each dataset passed as a parameter, representing 
+    the fraction of data used from a dataset.
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+
+\subparagraph{Model Run - logTrainingCode} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks that the training code extra locations parameter is a list of strings.
+    \item The function logs the list of training code extra locations.
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Model Run - logModel} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks that the model parameter is a valid model.
+    \item The function logs the model using the MLFlow library's \texttt{log\_model} method, taking it from the corresponding flavour (SKLearn, Pytorch or Tensorflow).
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Model Run - logDeploymentState} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function logs the deployment state of the model run using an additional parameter.
+    \item If the function proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subsection{Testing for prototype \emph{M2}}
+
+\paragraph{Equivalence classes for Experiment Manager}\mbox{}\\
+
+\subparagraph{Experiment Manager - createModelRun} \mbox{}\\
+
+\begin{enumerate}
+    \item The model run name is not a valid string.
+    \item The experiment name is not a valid string.
+    \item An invalid list of training/validation/test datasets is provided.
+    \item The portions of the training/validation/test datasets are not valid.
+    \item The parameter/hyperparameter/domain-specific parameter/metric key-value pair structures are not valid.
+    \item The training code extra location list is not valid.
+    \item All parameters are valid.
+\end{enumerate}
+
+\paragraph{Equivalence classes for Model Run}\mbox{}\\
+
+\subparagraph{Model Run - Constructor} \mbox{}\\
+
+\begin{enumerate}
+    \item The provided model run name is not a valid string.
+    \item The provided experiment name is not a valid string.
+    \item All parameters are valid
+\end{enumerate}
+
+
+\section{Prototype \emph{M3}}
+
+\subsection{Design for prototype \emph{M3}}
+\paragraph{Components' contents for prototype \emph{M3}} \mbox{} \\
+
+\paragraph{Model Run} \mbox{} \\
+
+\begin{itemize}
+    \item \textbf{logGraph: }logs graphs representative of the model's training.
+    \item \textbf{logPerformanceReport: } logs the performance report of the model and logs it into the logging output.
+    \item \textbf{logArtifacts: }logs files relevant to the model run.
+    \item \textbf{logArtifactsToModel: }Logs files to an already registered model, reopening a run for a short time.
+\end{itemize}
+
+\paragraph{Experiment Manager} \mbox{} \\
+
+\begin{itemize}
+    \item \textbf{createModelRun: }this already existing method is extended to log the performance report of the model, the possible graphs generated and all the files relevant to the model run.
+\end{itemize}
+
+\paragraph{Class dependencies for prototype \emph{M3}} \mbox{} \\
+
+The dependencies remain the same as for prototype \emph{M2}.
+
+\subsection{Implementation for prototype \emph{M3}}
+
+\paragraph{Model Run method flows} \mbox{}\\
+
+This will be the only component whose method flows will be documented, since the method flow of the Experiment Manager component's methods is the same as the previous prototype.
+
+\subparagraph{Model Run - logGraph} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks that the paths passed as a parameter all lead to existing files. If any file does not exist, the function will raise an warning that they will be skipped during the logging.
+    \item The function logs the list of figures as artifacts associated to the model run.
+    \item If the logging proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Model Run - logPerformanceReport} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks that the path to the performance report file exists. If the file does not exist, the function will raise an error and abort the process.
+    \item The function logs the performance report file as an artifact associated to the model run.
+    \item If the logging proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Model Run - logArtifacts} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks that the paths passed as a parameter all lead to existing files. If any file does not exist, the function will raise an warning that they will be skipped during the logging.
+    \item The function logs the list of artifacts as artifacts associated to the model run.
+    \item If the logging proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+\subparagraph{Model Run - logArtifactsToModel} \mbox{}\\
+
+\begin{enumerate}
+    \item Upon being called, the function checks that the model name and version parameters are valid, as well as all the paths in the provided list of artifact paths 
+    leading to existing files. Upon one of the formers being invalid, the function will raise an error and abort the process. In case any path of the latter
+    does not lead to an existing file, the function will raise a warning that it will be skipped during the logging.
+
+    \item The function tries to retrieve the run ID in which the specified version of the provided model was released.
+
+    \item The function reopens the run in which the model was released for a short time, logging the artifacts passed as a parameter.
+    
+    \item If the logging proceeds without errors, the function will return boolean True.
+\end{enumerate}
+
+
+\subsection{Testing for prototype \emph{M3}}
+
+\paragraph{Equivalence classes for Model Run} \mbox{}\\
+
+\subparagraph{Model Run - logGraph} \mbox{}\\
+
+\begin{enumerate}
+    \item Some of the paths of the graphs lead to nonexisting files.
+    \item All the paths of the graphs lead to existing files.
+\end{enumerate}
+
+\subparagraph{Model Run - logPerformanceReport} \mbox{}\\
+
+\begin{enumerate}
+    \item The provided report path leads to a nonexisting file.
+    \item The report path lead to existing files.
+\end{enumerate}
+
+\subparagraph{Model Run - logArtifacts} \mbox{}\\
+
+\begin{enumerate}
+    \item At least one of the paths does not lead to an existing file.
+    \item All the paths lead to existing files.
+\end{enumerate}
+
+\subparagraph{Model Run - logArtifactsToModel} \mbox{}\\
+
+\begin{enumerate}
+    \item The provided model name is not valid.
+    \item The provided version is not valid.
+    \item At least one of the paths does not lead to an existing file.
+    \item All the paths lead to existing files.
+\end{enumerate}

@@ -10,8 +10,8 @@ and application type for this module.
 
 The partial objectives of the project are related to configuration management applied to datasets and models, but the development of such a system will depend on more generic
 configuration management mechanisms. In fact, it is shown on the project's roadmap (\emph{figure \ref{fig:roadmap}}) that the development of the general configuration management
-features is crucial for initiating the development in the rest of the modules. Hence, the development of this module will be focused on creating mechanisms that interact
-synergically with the rest of the modules, mainly in the cases where commits to remote or local repositories are required.
+features is crucial for initiating the development in the rest of the milestones' prototypes. Hence, the development of this module will be focused on creating mechanisms that interact
+synergically with the rest of the components, mainly in the cases where commits to remote or local repositories are required.
 
 \section{Requirements analysis for milestone 3}
 
@@ -87,38 +87,6 @@ the possible exceptions that this may generate.
     \item \textbf{Commit Exceptions: }A package that includes some special exceptions that can be raised by the Commit Manager.
 \end{itemize}
 
-\paragraph{Prototype \emph{G1} components' contents}\mbox{}\\
-
-This paragraph will address the question of which information is stored by each of the classes and what functions will be contained within them. The methods of each component 
-are described within the following lists.
-
-\subparagraph{Commit Manager}\mbox{}\\
-
-
-The attributes of this component are:
-
-\begin{itemize}
-    \item \texttt{repo\_path}: a character string that contains the path to the repository where the commits will be stored.
-\end{itemize}
-
-The methods of this component are:
-
-\begin{itemize}
-    \item \texttt{commitLocal}: processes changes over a repository to create a new version of it.
-    \item \texttt{commitRemote}: processes changes over a repository to create a new version of it and push it to a remote repository.
-    \item \texttt{checkoutCommit}: changes the pointer of the repository to a specific commit. The effect of this method is that the changes made to a file are temporarily 
-    reverted to a previously defined state of the files within the repository. 
-    \item \texttt{findCommits}: Finds the commits within a repository that have a certain name, and stores them into a map object with the dates of the commits and their UID.
-    This is thought to be used for searching multiple commits within the same name in order to select to which one the user will switch to.Added in later development stages of the project due to a need encountered during the development of milestone 2.
-    \item \texttt{getCurrentCommitName}: returns the active commit's name. As well as the previous method, it was developed on a later development stage to satisfy a need encountered in other milestone.
-\end{itemize}
-
-\paragraph{Prototype \emph{G1} Class Relationships}
-
-\begin{itemize}
-    \item Dependency - Commit Manager $\rightarrow$ Commit Exceptions
-    \item Dependency - Commit Manager $\rightarrow$ GitPython
-\end{itemize}
 
 \paragraph{Design output}\mbox{}\\
 
@@ -127,11 +95,6 @@ The output design class diagram for prototype \emph{G1} is shown in \emph{figure
 \subsubsection{Implementation for prototype \emph{G1}}
 
 This section addresses questions about the programming language used, the libraries imported and a high-level description of the implementation of the components' methods.
-
-\paragraph{Programming language} \mbox{}\\
-
-Given the notorious availability of tools, frameworks and libraries in the language, as well as the balance between the efectiveness easiness of use the selected language for the development
-of this prototype is Python.
 
 \paragraph{Libraries used} \mbox{}\\
 
@@ -145,131 +108,10 @@ The libraries used for the implementation of this prototype are:
 
 \end{itemize}
 
-\paragraph{Commit Manager method flows} \mbox{}\\
-
-\textbf{Commit Manager - Constructor}
-\begin{enumerate}
-    \item When the function is called, the code validates the existence of a local repository on the specified path.
-    \item If the repository is not found, an existing exception for non-existing repositories is raised.
-    \item If the repository is found, the attribute \texttt{repo\_path} is set to the path of the repository.
-    \item The function returns the instance of the class.
-\end{enumerate}
-
-\textbf{Commit Manager - commitLocal}
-
-\begin{enumerate}
-    \item Upon being called, the function checks whether the repository is dirty (there are any uncommitted changes).
-    \begin{enumerate}
-        \item If the repository is not dirty (nothing is to be committed), an error for such situation is raised.
-    \end{enumerate}
-
-    \item If there are uncommitted changes, the function iterates over the list of files to be added for the commit.
-    \begin{enumerate}
-        \item If the file is not present within the repository or is present as a directory, a warning will be left on the logs as part of the handling routine of an exception
-        for such a situation.
-
-        \item If the file is present within the repository, but it has not any uncommitted changes, it is removed from the list of files to be added for the commit as part of 
-        handling an exception created for such a situation.
-    \end{enumerate}
-
-    \item Once all files have been checked, the function checks the validity of the provided commit message.
-    \begin{enumerate}
-        \item A commit message will be valid if it complies within the string validity standards: does not exceed length limitations, and the format passes a security check (it does not contain potential code injection substrings).
-        \item If a commit message is not valid, an error for such situation is raised.
-    \end{enumerate}
-
-    \item If the commit message is valid, the function adds the files to the commit list.
-    
-    \item Finally, the function commits the changes to the repository.
-    \begin{enumerate}
-        \item Should the commit transaction fail, the error shall be processed for the user to know and then returned in a logging message.
-    \end{enumerate}
-
-    \item The function returns the number of files that were committed.
-\end{enumerate}
-
-\textbf{Commit Manager - commitRemote}
-\begin{enumerate}
-    \item Upon being called, the function executes the \texttt{commitLocal} method.
-    \item Provided the success of the previous method call, the function pushes the changes to a remote repository.
-    \begin{enumerate}
-        \item Should the commit transaction fail, the error shall be processed for the user to know and then returned in a logging message.
-    \end{enumerate}
-    \item The function returns the number of files that were committed.
-\end{enumerate}
-
-\textbf{Commit Manager - checkoutCommit}
-\begin{enumerate}
-    \item Upon being called, the function checks whether the repository is dirty (there are any uncommitted changes).
-    \begin{enumerate}
-        \item If the repository is dirty (something is to be committed), an error for such situation is raised.
-    \end{enumerate}
-
-    \item the function checks whether the provided commit ID is valid (according to the string validity standards).
-    \begin{enumerate}
-        \item If the commit ID is not valid, an error for such situation is raised.
-    \end{enumerate}
-
-    \item Next, the function checks the validity of the instance number (one of the provided parameters). This instance number represents, among many commits with the same name, which one is to be checked out.
-    \begin{enumerate}
-        \item If the instance number is a negative number, an error for such situation is raised.
-    \end{enumerate}
-
-    \item The function checks whether there are commits with the provided name in the repository.
-    \begin{enumerate}
-        \item If no commits are found, an error for such situation is raised.
-    \end{enumerate}
-
-    \item If there are commits with the provided name, the function selects the commit holding the position specified by the instance parameter.
-    \begin{enumerate}
-        \item If the instance number is higher than the number of commits, the function selects the oldest commit with this name. On the other side, should this parameter not be specified, the latest instance will be selected.
-    \end{enumerate}
-
-    \item The function performs the checkout operation to the specified commit.
-
-    \item The function returns the position of the selected commit within the commit list.
-\end{enumerate}
-
-\textbf{Commit Manager - findCommits}
-\begin{enumerate}
-    \item The function uses \emph{GitPython} to instantly retrieve the list of commits in the repository.
-\end{enumerate}
-
-\textbf{Commit Manager - getCurrentCommitName}
-\begin{enumerate}
-    \item The function uses \emph{GitPython} to retrieve the first line of the active commit's message.
-\end{enumerate}
-
 \subsubsection{Testing for prototype \emph{G1}}
 
 Within the following sections, details for the testing phase of prototype \emph{G1} are shown. This includes the description of the different equivalence classes found for the prototype, and the
 errors found and lessons learned during the verification of the prototype.
-\newpage
-\paragraph{Equivalence classes for Commit Manager}
-
-\subparagraph{Commit Manager - Constructor} \mbox{}\\
-\begin{enumerate}
-    \item \texttt{repo\_path} exists, is a directory and contains a local repository.
-    \item \texttt{repo\_path} is not a valid Local Repository.
-\end{enumerate}
-
-\subparagraph{Commit Manager - commitLocal} \mbox{}\\
-\begin{enumerate}
-    \item The list of files to commit is not empty and the commit message is valid.
-    \item The repository to commit is not dirty.
-    \item The list of files to commit is empty.
-    \item The commit message is not valid.
-    \item After checking file validity, the list of files to commit is empty.
-\end{enumerate}
-
-\subparagraph{Commit Manager - checkoutCommit} \mbox{}\\
-\begin{enumerate}
-    \item All parameters are valid.
-    \item The commit ID is not valid.
-    \item The list of commits with the requested name is empty.
-    \item instance number is greater than the number of found commits.
-    \item instance number is negative.
-\end{enumerate}
 
 \paragraph{Test suites for Commit Manager}\mbox{}\\
 
