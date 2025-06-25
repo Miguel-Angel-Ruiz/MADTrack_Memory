@@ -1,23 +1,23 @@
 \chapter{Dataset configuration management in MADTrack}\label{cap:Milestone1}
 
 This chapter will cover the development of the features described in milestone 1 (codename \emph{D}), which is focused on the development of features related to Dataset
-Configuration Management. This module will work in conjuction with the general configuration management module (see \emph{chapter \ref{cap:Milestone3}}) to provide mechianisms
-to track and control the changes of the biggest of files. This chapter will introduce the main issues and address the problems to solve to achieve the goals defined for this
+Configuration Management. This module will work in conjuction with the general configuration management module (see \emph{chapter \ref{cap:Milestone3}}) to provide mechanisms
+to track and control the changes of the biggest of files. This chapter will introduce the main issues and address the problems to be solved to achieve the goals defined for this
 milestone.
 
 \section{Introduction}
 
 One of the partial objectives defined for this Final Degree Project involves the development of a module for tracking and versioning datasets. These datasets can be of variable
-size, but in many cases bigger than what a free-of-charge configuration management platform can handle. The lack of the existence of a platform that can handle such issue at
+size, but in many cases bigger than what a free-of-charge configuration management platform can handle. The lack of a platform that can handle such issue at
 at a feasible cost motivates the creation of this dataset tracking module. The main focus of the prototypes of milestone 1 is to provide a mechanism for tracking changes within
 datasets, without the need of committing them to the configuration management platform. Another issue to be tackled is that of bringing the correct dataset to the correct environment,
-providing at least an interface for this purpose. Firstly, an analysis for the requirements defined for this milestone will be made, separating them by the most suitable
-prototypes to be developed, to then proceed to the development details of each of these.
+providing at least an interface for this purpose. Firstly, an analysis of the requirements defined for this milestone will be made, separating them by the most suitable
+prototypes to be developed, and then proceeding to the development details of each of these.
 
 \section{Requirements analysis for milestone 1}
 
 Analysis has the purpose of defining the high-level outline of the application. The definition of this outline requires addressing the question of the most suitable architecture and
-application type for the prototypes of this milestone. This analysis will also define the characteristics of a tookit suitable for their development. Furthermore, the
+application type for the prototypes of this milestone. This analysis will also define the characteristics of a toolkit suitable for their development. Furthermore, the
 protocol for versioning datasets will also be defined within the analysis phase.
 
 \subsection{Requirements involved}
@@ -52,7 +52,7 @@ Apart from the final requirement division for each prototype, all prototypes mus
 
 \subsection{Integration with the rest of the system}
 
-Prototypes within milestone 1 only have meaningful interaction with the general configuration management module, mainly because of their dependency from the committing and
+Prototypes within milestone 1 only have meaningful interaction with the general configuration management module, mainly because of their dependency on the committing and
 checkout methods from milestone 3. 
 
 \begin{figure}[H]
@@ -65,7 +65,7 @@ checkout methods from milestone 3.
 
 The requirements describe the need for users to be able to locate files regarding datasets (and models, if it were necessary). Hence, an heterogeneous system will be 
 required that is able to load a file or dataset from some sort of initial information, such as an URL. The architecture of this application will be monolithic, but will 
-also have the capability to handle connections to remote file systems. Also, the coming prototypes will integrate an automatic version detection system that loads the file and 
+also have the capability to handle connections to remote file systems. Also, the upcoming prototypes will integrate an automatic version detection system that loads the file and 
 sets it in the correct version.
 
 \subsection{Application type analysis}
@@ -122,7 +122,7 @@ The use case diagram for prototype \emph{D1} is shown in \emph{figure \ref{fig:u
 
 Two main tasks can be extracted from this use case diagram. The first task is related to the tracking of changes within datasets, focusing particularly on enabling this action on a 
 dataset. The second task, additionally, is to enable users to load datasets in either their latest version or any specific existent version. For the fulfillment of 
-this objective, two new components will be created, along with a pack of classes to represent exceptions, errors and specific states for a dataset repository.
+this objective, two new components will be created, along with a package with classes to represent exceptions, errors and specific states for a dataset repository.
 
 \paragraph{Prototype \emph{D1} components}
 
@@ -131,7 +131,7 @@ this objective, two new components will be created, along with a pack of classes
     capable of starting the change tracking on a dataset and revert its state to a previous, past version.
     
     \item \textbf{Integration States: }an enumeration component that contains the possible states of integration of a dataset repository into ModelOps' configuration management 
-    system: Fully integrated, partially or semi integrated or not integrated.
+    system: Fully integrated, partially or semi-integrated or not integrated.
     
     \item \textbf{Dataset Fetchers: }a series of components with the main purpose of providing users with the mechanism to obtain datasets from virtually any location, as well as to 
     load them in their different versions, by means of a unified interface to name the dataset versions. For this prototype, only one implementation of this interface will be made.
@@ -149,7 +149,7 @@ The design for prototype \emph{D1} is shown in \emph{Placeholder for annex figur
 
 \subsubsection{Implementation for prototype \emph{D1}}
 
-On the coming paragraphs, details for the tools used to implement this prototype are revealed.
+In the coming paragraphs, details for the tools used to implement this prototype are revealed.
 
 \paragraph{Libraries} \mbox{}\\
 
@@ -167,13 +167,8 @@ The libraries used for the implementation of this prototype were:
 
 This subsection contains information on the test suites and errors encountered during the testing phase of the prototype.
 
-\paragraph{Test suites for prototype \emph{D1}}\mbox{}\\
-
 The test suites for this class can be found in \emph{annex reference placeholder}. % Referencia al Anexo con las tablas (porque pueden ser muy grandes y no es plan). Esto no es prioritario, puede esperar
-
-\paragraph{Errors found and lessons learned during the development of prototype \emph{D1}}\mbox{}\\
-
-The errors encountered during the course of the testing phase of prototype \emph{G1} are shown in \emph{annex reference placeholder}. % De nuevo, esto puede esperar porque va al anexo
+In the same way, the errors encountered during the course of the testing phase of prototype \emph{G1} are shown in \emph{annex reference placeholder}. % De nuevo, esto puede esperar porque va al anexo
 
 \subsection{Prototype \emph{D2}}
 
@@ -214,7 +209,7 @@ libraries.
 \subsubsection{Testing for prototype \emph{D2}}
 
 The testing phase of prototype \emph{D2} was clearly focused on testing the new methods. Since the method \texttt{getCurrentDatasetName} is a read-only 
-method that just calls the Commit Manager, its testing can be ommitted. The test suites of the remaining method can be found at \emph{annex reference placeholder} and the errors fixed can be found at \emph{annex reference placeholder}.
+method that just calls the Commit Manager, its testing can be omitted. The test suites of the remaining method can be found at \emph{annex reference placeholder} and the errors fixed can be found at \emph{annex reference placeholder}.
 
 \paragraph{Test suites for prototype \emph{D2}}\mbox{}\\
 

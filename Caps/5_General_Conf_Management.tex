@@ -1,22 +1,22 @@
 \chapter{General Configuration Management in MADTrack}\label{cap:Milestone3}
 
 One of the main milestones presented within the previous chapter is milestone 3 (codename \emph{G}), which is focused on the development of features related to General
-Configuration Management. The main purpose of developing this features as a separate module is to provide an extensible basis for possible future developments of features
+Configuration Management. The main purpose of developing these features as a separate module is to provide an extensible basis for possible future developments of features
 unrelated to versioning datasets and models, and more related to basic configuration management mechanisms. In this chapter, a brief introduction to what needs to be developed
-will be made, as well as an analysis of the requirements that will need to be developed for this milestone, which will result into a diagnosis of the most suitable architecture
+will be made, as well as an analysis of the requirements that will need to be developed for this milestone, which will result in a diagnosis of the most suitable architecture
 and application type for this module.
 
 \section{Introduction}
 
 The partial objectives of the project are related to configuration management applied to datasets and models, but the development of such a system will depend on more generic
-configuration management mechanisms. In fact, it is shown on the project's roadmap (\emph{figure \ref{fig:roadmap}}) that the development of the general configuration management
+configuration management mechanisms. In fact, it is shown in the project's roadmap (\emph{figure \ref{fig:roadmap}}) that the development of the general configuration management
 features is crucial for initiating the development in the rest of the milestones' prototypes. Hence, the development of this module will be focused on creating mechanisms that interact
 synergically with the rest of the components, mainly in the cases where commits to remote or local repositories are required.
 
 \section{Requirements analysis for milestone 3}
 
 The main purpose of analysis is to define the most suitable way to proceed with the development of the prototypes. In this case, the functionalities provided by Git are the 
-are the ones more suitable to use in the context of development. This Prototype interacts with all those prototypes that require to integrate changes to the system, such as 
+are the ones most suitable to use in the context of development. This Prototype interacts with all those prototypes that require integrating changes to the system, such as 
 tracking and committing changes within a dataset or a model.
 
 \subsection{Requirements involved}
@@ -28,8 +28,8 @@ Additionally, prototypes within milestone 3 require the satisfaction of the non-
 
 \subsection{Integration with the rest of the system}
 
-Prototype G1 is the prototype which constitutes the core dependency for the most prototypes to be developed within the other two milestones. The depending prototypes are D2, which
-needs a mechanism for committing changes made to DVC's files, and M2, which would potentially need a mechanism for committing metadata stored about training configurations.
+Prototype G1 is the prototype which constitutes the core dependency for the most prototypes to be developed within the other two milestones. The dependent prototypes are \emph{D2}, which
+needs a mechanism for committing changes made to DVC's files, and \emph{M2}, which would potentially need a mechanism for committing metadata stored about training configurations.
 
 \begin{figure}[H]
     \centering
@@ -39,7 +39,7 @@ needs a mechanism for committing changes made to DVC's files, and M2, which woul
 
 \subsection{Architecture analysis}
 
-The nature of the requirements of the milestone describe that multiple aspects shall be handled: The user may want to push their changes to either a local or remote repository. 
+The nature of the requirements of the milestone describes that multiple aspects shall be handled: The user may want to push their changes to either a local or remote repository. 
 And the way to commit changes differs from whether the committed item is a dataset (The information of the DVC tracking file must be committed) or an \acrshort{AI} model (whole model folders can be committed from a repository within
 the remote tracking server). Additionally, as versions would be defined by the commit name, a functionality to retrieve the name of the active commit could be useful.
 
@@ -49,7 +49,7 @@ a monolithic application, with the possibility for it to connect momentarily to 
 \subsection{Application type analysis}
 
 Due to the reasons described in the previous subsection, the best option for the development of prototypes of this milestone shall be a wrapper library that encapsulates Git
-operations. A library that allows to commit to local or remote repository independently on the item to be committed, facilitating thus its integration with toolkits that enable the 
+operations. A library that allows to commit to local or remote repository independently of the item to be committed, facilitating thus its integration with toolkits that enable the 
 tracking of datasets and models.
 
 \subsection{Toolkit analysis}
@@ -82,7 +82,7 @@ the possible exceptions that this may generate.
 \paragraph{Prototype \emph{G1} components}
 
 \begin{itemize}
-    \item \textbf{Commit Manager: }a component that will contain the functions for managing both local and remote repositories, as well as operations for chaning the active commit (\emph{checkout}).
+    \item \textbf{Commit Manager: }a component that will contain the functions for managing both local and remote repositories, as well as operations for changing the active commit (\emph{checkout}).
     
     \item \textbf{Commit Exceptions: }A package that includes some special exceptions that can be raised by the Commit Manager.
 \end{itemize}
@@ -94,7 +94,7 @@ The output design class diagram for prototype \emph{G1} is shown in \emph{figure
 
 \subsubsection{Implementation for prototype \emph{G1}}
 
-This section addresses questions about the programming language used, the libraries imported and a high-level description of the implementation of the components' methods.
+This section addresses questions about the programming language used, the libraries imported, and a high-level description of the implementation of the components' methods.
 
 \paragraph{Libraries used} \mbox{}\\
 
